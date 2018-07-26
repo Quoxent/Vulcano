@@ -1,0 +1,26 @@
+[Unit]
+Description=Vulcano's distributed currency daemon
+After=network.target
+
+[Service]
+User=vulcano
+Group=vulcano
+
+Type=forking
+PIDFile=/var/lib/vulcanod/vulcanod.pid
+
+ExecStart=/usr/bin/vulcanod -daemon -pid=/var/lib/vulcanod/vulcanod.pid \
+          -conf=/etc/vulcano/vulcano.conf -datadir=/var/lib/vulcanod
+
+ExecStop=-/usr/bin/vulcano-cli -conf=/etc/vulcano/vulcano.conf \
+         -datadir=/var/lib/vulcanod stop
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

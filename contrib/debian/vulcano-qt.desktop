@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Vulcano
+Comment=Vulcano P2P Cryptocurrency
+Comment[fr]=Vulcano, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Vulcano, eşten eşe kriptografik sanal para birimi
+Exec=vulcano-qt %u
+Terminal=false
+Type=Application
+Icon=vulcano128
+MimeType=x-scheme-handler/vulcano;
+Categories=Office;Finance;

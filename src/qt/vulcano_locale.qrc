@@ -1,0 +1,28 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/translations">
+        <file alias="bg">locale/vulcano_bg.qm</file>
+        <file alias="ca">locale/vulcano_ca.qm</file>
+        <file alias="cs">locale/vulcano_cs.qm</file>
+        <file alias="da">locale/vulcano_da.qm</file>
+        <file alias="de">locale/vulcano_de.qm</file>
+        <file alias="en">locale/vulcano_en.qm</file>
+        <file alias="en_US">locale/vulcano_en_US.qm</file>
+        <file alias="es">locale/vulcano_es.qm</file>
+        <file alias="fi">locale/vulcano_fi.qm</file>
+        <file alias="fr_FR">locale/vulcano_fr_FR.qm</file>
+        <file alias="it">locale/vulcano_it.qm</file>
+        <file alias="ja">locale/vulcano_ja.qm</file>
+        <file alias="ko_KR">locale/vulcano_ko_KR.qm</file>
+        <file alias="nl">locale/vulcano_nl.qm</file>
+        <file alias="pl">locale/vulcano_pl.qm</file>
+        <file alias="pt">locale/vulcano_pt.qm</file>
+        <file alias="pt_BR">locale/vulcano_pt_BR.qm</file>
+        <file alias="ro_RO">locale/vulcano_ro_RO.qm</file>
+        <file alias="ru">locale/vulcano_ru.qm</file>
+        <file alias="sk">locale/vulcano_sk.qm</file>
+        <file alias="sv">locale/vulcano_sv.qm</file>
+        <file alias="uk">locale/vulcano_uk.qm</file>
+        <file alias="zh_CN">locale/vulcano_zh_CN.qm</file>
+        <file alias="zh_TW">locale/vulcano_zh_TW.qm</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,26 @@
+# /etc/conf.d/vulcanod: config file for /etc/init.d/vulcanod
+
+# Config file location
+#BITCOIND_CONFIGFILE="/etc/vulcano/vulcano.conf"
+
+# What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
+#BITCOIND_PIDDIR="/var/run/vulcanod"
+
+# What filename to give the pidfile
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/vulcanod.pid"
+
+# Where to write vulcanod data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/vulcanod"
+
+# User and group to own vulcanod process
+#BITCOIND_USER="vulcano"
+#BITCOIND_GROUP="vulcano"
+
+# Path to vulcanod executable
+#BITCOIND_BIN="/usr/bin/vulcanod"
+
+# Nice value to run vulcanod under
+#BITCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+BITCOIND_OPTS=""
