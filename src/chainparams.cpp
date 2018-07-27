@@ -27,43 +27,6 @@ struct SeedSpec6 {
 #include "chainparamsseeds.h"
 
 /**
- * Check proof of work.
- */
-bool checkPoW(uint256 hash, unsigned int nBits) {
-    bool fNegative;
-    bool fOverflow;
-    uint256 bnTarget;
-
-    bnTarget.SetCompact(nBits, &fNegative, &fOverflow);
-
-    // Check range
-    if (fNegative || bnTarget == 0 || fOverflow)
-        return false;
-
-    // Check proof of work matches claimed amount
-    if (hash > bnTarget)
-        return false;
-
-    return true;
-}
-
-/**
- * Mine genesis block.
- */
-void mineGenesisBlock(CBlock block) {
-    unsigned int nBits = block.nBits;
-    block.nNonce = 1;
-    while(!checkPoW(block.GetHash(), nBits) && block.nNonce <= UINT32_MAX) {
-        //std::cout << "nonce: " << block.nNonce << " hash: " << block.GetHash().ToString() << std::endl;
-        block.nNonce++;
-    }
-    std::cout << "hash: " << block.GetHash().ToString() << std::endl;
-    std::cout << "merkle: " << block.hashMerkleRoot.ToString() << std::endl;
-    std::cout << "nonce: " << block.nNonce << std::endl;
-    std::cout << "nbits: " << block.nBits << std::endl;
-}
-
-/**
  * Main network
  */
 
@@ -91,7 +54,7 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-        (0, uint256("0x0000068e7ab8e264f6759d2d81b29e8b917c10b04db47a9a0bb3cba3fba5d574"));
+        (0, uint256("0x000002c5551b617c4f02f6be4aa8a03e9a17fec08524bf4cf97fc6d9be5a856e"));
  
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
@@ -102,7 +65,7 @@ static const Checkpoints::CCheckpointData data = {
 };
 
 static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
-	boost::assign::map_list_of(0, uint256("0x000001a2f1a9a313468d66b81dd2cb199f6f8f5d426198a7c4daa9c3f9498285"));
+	boost::assign::map_list_of(0, uint256("0x00000825187e9a21962b3c7b7d516ed84ffd8a0d1024249e87904802e363d43e"));
 static const Checkpoints::CCheckpointData dataTestnet = {
     &mapCheckpointsTestnet,
     1532628451,
@@ -164,12 +127,11 @@ public:
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
         genesis.nTime = 1532628450;
-        genesis.nBits = bnProofOfWorkLimit.GetCompact();;
-        genesis.nNonce = 125854; 
-        std::cout << "MAIN" << std::endl;
-        mineGenesisBlock(genesis);
+        genesis.nBits = 504365055;
+        genesis.nNonce = 2104975; 
+
 	    hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x0000068e7ab8e264f6759d2d81b29e8b917c10b04db47a9a0bb3cba3fba5d574"));
+        assert(hashGenesisBlock == uint256("0x000002c5551b617c4f02f6be4aa8a03e9a17fec08524bf4cf97fc6d9be5a856e"));
 	    assert(genesis.hashMerkleRoot == uint256("0x77976d6bd593c84063ac3937525bc15e25188d96871b13d4451ffc382999f64f"));
 
         vSeeds.push_back(CDNSSeedData("vulcseed1.vulcanocrypto.com", "vulcseed1.vulcanocrypto.com"));      // Single node address
@@ -249,12 +211,11 @@ public:
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
         genesis.nTime = 1532628451;
-        genesis.nNonce = 250375;
-        genesis.nBits = bnProofOfWorkLimit.GetCompact();
-        std::cout << "TEST" << std::endl;
-        mineGenesisBlock(genesis);
+        genesis.nNonce = 1908779;
+        genesis.nBits = 504365055;
+
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x000001a2f1a9a313468d66b81dd2cb199f6f8f5d426198a7c4daa9c3f9498285"));
+        assert(hashGenesisBlock == uint256("0x00000825187e9a21962b3c7b7d516ed84ffd8a0d1024249e87904802e363d43e"));
         assert(genesis.hashMerkleRoot == uint256("0x77976d6bd593c84063ac3937525bc15e25188d96871b13d4451ffc382999f64f"));
 
         vFixedSeeds.clear();
@@ -310,13 +271,11 @@ public:
         nTargetSpacing = 1 * 60;        // Vulcano: 1 minutes
         bnProofOfWorkLimit = ~uint256(0) >> 1;
         genesis.nTime = 1532628452;
-        genesis.nBits = 0x207fffff;
-        genesis.nNonce = 12345;
-        std::cout << "REG" << std::endl;
-        mineGenesisBlock(genesis);
+        genesis.nBits = 545259519;
+        genesis.nNonce = 1;
         hashGenesisBlock = genesis.GetHash();
         nDefaultPort = 51476;
-//        assert(hashGenesisBlock == uint256("0x4f023a2120d9127b21bbad01724fdb79b519f593f2a85b60d3d79160ec5f29df"));
+        assert(hashGenesisBlock == uint256("0x6d78a65fcf8b7db69a58984cfb042cadcd8afa7243c3d6e54dbff45566fea919"));
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.
         vSeeds.clear();      //! Testnet mode doesn't have any DNS seeds.
         fRequireRPCPassword = false;
