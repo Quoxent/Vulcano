@@ -2,11 +2,10 @@ import binascii
 import hashlib
 import sys
 
-def privateKey_to_WIF(pk): #wallet import format ==> pra importar nas carteiras
-
-    privWIF1 = hashlib.sha256(binascii.unhexlify('ef' + pk)).hexdigest()
+def privateKey_to_WIF(pre, pk): 
+    privWIF1 = hashlib.sha256(binascii.unhexlify(pre + pk)).hexdigest()
     privWIF2 = hashlib.sha256(binascii.unhexlify(privWIF1)).hexdigest()
-    privWIF3 = 'ef' + pk + privWIF2[:8]
+    privWIF3 = pre + pk + privWIF2[:8]
 
     pubnum = int(privWIF3, 16)
     pubnumlist = []
@@ -14,9 +13,11 @@ def privateKey_to_WIF(pk): #wallet import format ==> pra importar nas carteiras
     WIF = ''
     for l in ['123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'[x] for x in pubnumlist]:
         WIF = l + WIF
-    #print(WIF)
     return WIF
 
-k = sys.argv[1]
-rs =  privateKey_to_WIF(k)
+# mainnet = 'd4'
+# testnet = 'ef'
+pre = sys.argv[1]
+k = sys.argv[2]
+rs =  privateKey_to_WIF(pre, k)
 print(rs)
