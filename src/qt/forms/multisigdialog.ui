@@ -97,7 +97,7 @@
             <string>&amp;Add Address / Key</string>
            </property>
            <property name="icon">
-            <iconset resource="../mutx.qrc">
+            <iconset resource="../vulc.qrc">
              <normaloff>:/icons/add</normaloff>:/icons/add</iconset>
            </property>
            <property name="autoDefault">
@@ -194,7 +194,7 @@
             <string>C&amp;reate</string>
            </property>
            <property name="icon">
-            <iconset resource="../mutx.qrc">
+            <iconset resource="../vulc.qrc">
              <normaloff>:/icons/filesave</normaloff>:/icons/filesave</iconset>
            </property>
            <property name="autoDefault">
@@ -268,7 +268,7 @@ Please be patient after clicking import.</string>
             <string>&amp;Import Redeem</string>
            </property>
            <property name="icon">
-            <iconset resource="../mutx.qrc">
+            <iconset resource="../vulc.qrc">
              <normaloff>:/icons/receiving_addresses</normaloff>:/icons/receiving_addresses</iconset>
            </property>
           </widget>
@@ -374,7 +374,7 @@ Please be patient after clicking import.</string>
                 <string>Add a Raw Input</string>
                </property>
                <property name="icon">
-                <iconset resource="../mutx.qrc">
+                <iconset resource="../vulc.qrc">
                  <normaloff>:/css/default</normaloff>:/css/default</iconset>
                </property>
               </widget>
@@ -440,13 +440,13 @@ Please be patient after clicking import.</string>
                 </sizepolicy>
                </property>
                <property name="toolTip">
-                <string>Add destinations to send MUTX to</string>
+                <string>Add destinations to send VULC to</string>
                </property>
                <property name="text">
                 <string>Add &amp;Destination</string>
                </property>
                <property name="icon">
-                <iconset resource="../mutx.qrc">
+                <iconset resource="../vulc.qrc">
                  <normaloff>:/icons/add</normaloff>:/icons/add</iconset>
                </property>
               </widget>
@@ -530,7 +530,7 @@ Please be patient after clicking import.</string>
                 <string>Cr&amp;eate</string>
                </property>
                <property name="icon">
-                <iconset resource="../mutx.qrc">
+                <iconset resource="../vulc.qrc">
                  <normaloff>:/icons/export</normaloff>:/icons/export</iconset>
                </property>
                <property name="autoDefault">
@@ -655,7 +655,7 @@ txScrollArea:{
                 <string>S&amp;ign</string>
                </property>
                <property name="icon">
-                <iconset resource="../mutx.qrc">
+                <iconset resource="../vulc.qrc">
                  <normaloff>:/icons/edit</normaloff>:/icons/edit</iconset>
                </property>
                <property name="autoDefault">
@@ -687,7 +687,7 @@ txScrollArea:{
                 <string>Co&amp;mmit</string>
                </property>
                <property name="icon">
-                <iconset resource="../mutx.qrc">
+                <iconset resource="../vulc.qrc">
                  <normaloff>:/icons/send</normaloff>:/icons/send</iconset>
                </property>
                <property name="autoDefault">
@@ -712,7 +712,7 @@ txScrollArea:{
                   <string>Add Private &amp;Key</string>
                  </property>
                  <property name="icon">
-                  <iconset resource="../mutx.qrc">
+                  <iconset resource="../vulc.qrc">
                    <normaloff>:/icons/add</normaloff>:/icons/add</iconset>
                  </property>
                 </widget>
@@ -829,7 +829,7 @@ txScrollArea:{
   </layout>
  </widget>
  <resources>
-  <include location="../mutx.qrc"/>
+  <include location="../vulc.qrc"/>
  </resources>
  <connections/>
 </ui>
