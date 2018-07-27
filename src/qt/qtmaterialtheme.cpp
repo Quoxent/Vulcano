@@ -33,10 +33,10 @@ QtMaterialTheme::QtMaterialTheme(QObject *parent)
     : QObject(parent),
       d_ptr(new QtMaterialThemePrivate(this))
 {
-    setColor("primary1", Material::lightBlueA700);
-    setColor("primary2", Material::cyan700);
-    setColor("primary3", Material::lightBlack);
-    setColor("accent1", Material::pinkA200);
+    setColor("primary1", Material::orangeA700);
+    setColor("primary2", Material::orange700);
+    setColor("primary3", Material::orange50);
+    setColor("accent1", Material::orangeA200);
     setColor("accent2", Material::grey100);
     setColor("accent3", Material::grey500);
     setColor("text", Material::darkBlack);
