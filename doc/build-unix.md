@@ -105,6 +105,28 @@ The release is built with GCC and then "strip vulcanod" to strip the debug
 symbols, which reduces the executable size by about 90%.
 
 
+Manul install OpenSSL 1.0.1o
+----------------------
+```
+sudo apt-get install make   # (Install compiling library Make)
+wget https://www.openssl.org/source/openssl-1.0.2o.tar.gz   # (Download the latest OpenSSL 1.0.2o binaries)
+tar -xzvf openssl-1.0.2o.tar.gz # (Extract the tar ball to the local directory)
+cd openssl-1.0.2o   # (Enter extracted OpenSSL directory)
+sudo ./config       # (Configure binaries for compiling)
+sudo make install   # (install configured binaries)
+sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`  # (This will create a sym link to the new binaries)
+openssl version -v
+```
+
+
+./configure --with-unsupported-ssl error
+----------------------------------------
+```
+sudo apt install libssl1.0 libssl1.0-dev
+./configure
+```
+
+
 miniupnpc
 ---------
 
