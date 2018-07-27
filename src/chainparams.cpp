@@ -109,7 +109,7 @@ public:
         nMaturity = 66; // 99 Minutes
 	    nMasternodeCountDrift = 4;
         nModifierUpdateBlock = 1;
-	    nMaxMoneyOut = 21525720 * COIN; // Year 2
+	    nMaxMoneyOut = 330000000 * COIN;
 	
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
@@ -198,11 +198,7 @@ public:
         nTargetSpacing = 1 * 30;  // 30 Seconds
 	    nTargetSpacingSlowLaunch = 1 * 30; // Kludgy but don't want to check for testnet each time in GetNextWorkRequired
 
-        nLastPOWBlock = 1;
-        nLastPOWBlockOld = 1;
-		nLastSeeSawBlock = 1;
         nMaturity = 15;
-        nMaxMoneyOut = 33284220 * COIN; // 2032 Maximum
         nRampToBlock = 100;
 
         nEnforceBlockUpgradeMajority = 51;
