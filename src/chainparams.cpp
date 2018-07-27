@@ -27,6 +27,43 @@ struct SeedSpec6 {
 #include "chainparamsseeds.h"
 
 /**
+ * Check proof of work.
+ */
+bool checkPoW(uint256 hash, unsigned int nBits) {
+    bool fNegative;
+    bool fOverflow;
+    uint256 bnTarget;
+
+    bnTarget.SetCompact(nBits, &fNegative, &fOverflow);
+
+    // Check range
+    if (fNegative || bnTarget == 0 || fOverflow)
+        return false;
+
+    // Check proof of work matches claimed amount
+    if (hash > bnTarget)
+        return false;
+
+    return true;
+}
+
+/**
+ * Mine genesis block.
+ */
+void mineGenesisBlock(CBlock block) {
+    unsigned int nBits = block.nBits;
+    block.nNonce = 1;
+    while(!checkPoW(block.GetHash(), nBits) && block.nNonce <= UINT32_MAX) {
+        //std::cout << "nonce: " << block.nNonce << " hash: " << block.GetHash().ToString() << std::endl;
+        block.nNonce++;
+    }
+    std::cout << "hash: " << block.GetHash().ToString() << std::endl;
+    std::cout << "merkle: " << block.hashMerkleRoot.ToString() << std::endl;
+    std::cout << "nonce: " << block.nNonce << std::endl;
+    std::cout << "nbits: " << block.nBits << std::endl;
+}
+
+/**
  * Main network
  */
 
@@ -54,23 +91,12 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-        (0, uint256("0x0000068e7ab8e264f6759d2d81b29e8b917c10b04db47a9a0bb3cba3fba5d574"))
-        (1000, uint256("000000000022b7a37bac9056e9a19540325284bbe56b6afb0c06457a083fbdda"))
-        (2000, uint256("0000000000006c56912450d82134f63c86479070495c0551f52f4fd4b8d70334"))
-        (4000, uint256("00000000000139a984a9ba8a0c25fff32e00b90cda1f4f9f4b7bb3d99dd8a0a1"))
-        (4812, uint256("0000000000044bafbe59ee57468213caa18c34dcdbe2be106b76fe5ee9633d3e"))
-        (24750, uint256("00000000000181b3362ff9691edf4775f84712c6a0d2a2414563b9b431609952"))
-        (58930, uint256("00000000000211bd4c6d6d6b5fa388071c4bcae5dbbf4f3336e008f18f894fed"))
-        (58980, uint256("00000000000313699ff390ec65e128ea858eac8632751e9902193e26f2e54bc6"))
-        (59200, uint256("000000000000a4d9ec8b2fa71028b1def77606b015622949a997d92503bbcc37"))
-        (59400, uint256("000000000000880f972b364e7dc7c67093109e862b23ffecf2d3f2f87c24d0cf"))
-        (95600, uint256("0000000000084e401f85d9f393e2d61428352f20bbb51ccfe2483e49423b89ce"))
-        (173559, uint256("0000000000002b887e1d437a7a41dc628f96f45c1cc63f13e9fb518ca1ae3883"));
+        (0, uint256("0x0000068e7ab8e264f6759d2d81b29e8b917c10b04db47a9a0bb3cba3fba5d574"));
  
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1528675501,// * UNIX timestamp of last checkpoint block
-    311898,    // * total number of transactions between genesis and last checkpoint
+    1532628450,// * UNIX timestamp of last checkpoint block
+    0,    // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
     2000        // * estimated number of transactions per day after checkpoint
 };
@@ -79,14 +105,14 @@ static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
 	boost::assign::map_list_of(0, uint256("0x000001a2f1a9a313468d66b81dd2cb199f6f8f5d426198a7c4daa9c3f9498285"));
 static const Checkpoints::CCheckpointData dataTestnet = {
     &mapCheckpointsTestnet,
-    1514516171,
+    1532628451,
     0,
     250};
 static Checkpoints::MapCheckpoints mapCheckpointsRegtest =
     boost::assign::map_list_of(0, uint256("0x001"));
 static const Checkpoints::CCheckpointData dataRegtest = {
     &mapCheckpointsRegtest,
-    1454124731,
+    1532628452,
     0,
     100};
 class CMainParams : public CChainParams
@@ -113,10 +139,10 @@ public:
         nTargetTimespan = 1 * 90; // Vulcano: 1.5 minutes
         nTargetSpacingSlowLaunch = 5 * 90;  // Vulcano: 7.5 minutes (Slow launch - Block 300)
 	    nTargetSpacing = 1 * 90; // Vulcano: 1.5min after block 300
-        nLastPOWBlock = 182700; 
-        nLastPOWBlockOld = 345600; // 1 year
-		nLastSeeSawBlock = 200000; // last block for seesaw rewards
-	    nRampToBlock = 960; // Slow start, ramp linearly to this block
+        nLastPOWBlock = 1; // Vulcano: straight to PoS
+        nLastPOWBlockOld = 1; // Vulcano: straight to PoS
+		nLastSeeSawBlock = 1; // Vulcano: straight to PoS split rewards
+	    nRampToBlock = 1; // Slow start, ramp linearly to this block
         nMaturity = 66; // 99 Minutes
 	    nMasternodeCountDrift = 4;
         nModifierUpdateBlock = 1;
@@ -137,28 +163,29 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1512131946;
+        genesis.nTime = 1532628450;
         genesis.nBits = bnProofOfWorkLimit.GetCompact();;
         genesis.nNonce = 125854; 
-
+        std::cout << "MAIN" << std::endl;
+        mineGenesisBlock(genesis);
 	    hashGenesisBlock = genesis.GetHash();
         assert(hashGenesisBlock == uint256("0x0000068e7ab8e264f6759d2d81b29e8b917c10b04db47a9a0bb3cba3fba5d574"));
 	    assert(genesis.hashMerkleRoot == uint256("0x77976d6bd593c84063ac3937525bc15e25188d96871b13d4451ffc382999f64f"));
 
         vSeeds.push_back(CDNSSeedData("vulcseed1.vulcanocrypto.com", "vulcseed1.vulcanocrypto.com"));      // Single node address
-        vSeeds.push_back(CDNSSeedData("vulcseed2.vulcanocrypto.com", "vulcseed2.vulcanocrypto.com")); 	 // Single node address
+        vSeeds.push_back(CDNSSeedData("vulcseed2.vulcanocrypto.com", "vulcseed2.vulcanocrypto.com")); 	   // Single node address
         vSeeds.push_back(CDNSSeedData("vulcseed3.vulcanocrypto.com", "vulcseed3.vulcanocrypto.com"));      // Single node address
-	vSeeds.push_back(CDNSSeedData("vulcseed4.vulcanocrypto.com", "vulcseed4.vulcanocrypto.com"));      // Single node address
+	    vSeeds.push_back(CDNSSeedData("vulcseed4.vulcanocrypto.com", "vulcseed4.vulcanocrypto.com"));      // Single node address
         vSeeds.push_back(CDNSSeedData("vulcseed5.vulcanocrypto.com", "vulcseed5.vulcanocrypto.com"));      // Single node address
         vSeeds.push_back(CDNSSeedData("vulcseed1.vulcano.io", "vulcseed1.vulcano.io"));      // Single node address
-        vSeeds.push_back(CDNSSeedData("vulcseed2.vulcanoc.io", "vulcseed2.vulcano.io")); 	 // Single node address
+        vSeeds.push_back(CDNSSeedData("vulcseed2.vulcano.io", "vulcseed2.vulcano.io")); 	 // Single node address
         vSeeds.push_back(CDNSSeedData("vulcseed3.vulcano.io", "vulcseed3.vulcano.io"));      // Single node address
-	vSeeds.push_back(CDNSSeedData("vulcseed4.vulcano.io", "vulcseed4.vulcano.io"));      // Single node address
+	    vSeeds.push_back(CDNSSeedData("vulcseed4.vulcano.io", "vulcseed4.vulcano.io"));      // Single node address
         vSeeds.push_back(CDNSSeedData("vulcseed5.vulcano.io", "vulcseed5.vulcano.io"));      // Single node address
         
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 85); // b
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 18); 
-        base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 212);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 70); // V
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 18); // 8
+        base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 212); // 2
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x02)(0x2D)(0x25)(0x33).convert_to_container<std::vector<unsigned char> >();
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x02)(0x21)(0x31)(0x2B).convert_to_container<std::vector<unsigned char> >();
 	    //BIP44 as defined by https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki
@@ -221,19 +248,19 @@ public:
         nToCheckBlockUpgradeMajority = 100;
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
-        genesis.nTime = 1514516171;
+        genesis.nTime = 1532628451;
         genesis.nNonce = 250375;
         genesis.nBits = bnProofOfWorkLimit.GetCompact();
-
+        std::cout << "TEST" << std::endl;
+        mineGenesisBlock(genesis);
         hashGenesisBlock = genesis.GetHash();
         assert(hashGenesisBlock == uint256("0x000001a2f1a9a313468d66b81dd2cb199f6f8f5d426198a7c4daa9c3f9498285"));
         assert(genesis.hashMerkleRoot == uint256("0x77976d6bd593c84063ac3937525bc15e25188d96871b13d4451ffc382999f64f"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        //vSeeds.push_back(CDNSSeedData("testnet01.vulcano.io", "testnet01.vulcano.io"));
-        //vSeeds.push_back(CDNSSeedData("testnet02.vulcano.io", "testnet02.vulcano.io"));
-        //vSeeds.push_back(CDNSSeedData("testnet03.vulcano.io", "testnet03.vulcano.io"));
+        vSeeds.push_back(CDNSSeedData("test-node01.vulcanocrypto.com", "test-node01.vulcanocrypto.com"));
+        vSeeds.push_back(CDNSSeedData("test-node01.vulcano.io", "test-node01.vulcano.io"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 65); // Testnet vulcano addresses start with 'T'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 12);  // Testnet vulcano script addresses start with '5' or '6'
@@ -282,9 +309,11 @@ public:
         nTargetTimespan = 24 * 60 * 60; // Vulcano: 1 day
         nTargetSpacing = 1 * 60;        // Vulcano: 1 minutes
         bnProofOfWorkLimit = ~uint256(0) >> 1;
-        genesis.nTime = 1454124731;
+        genesis.nTime = 1532628452;
         genesis.nBits = 0x207fffff;
         genesis.nNonce = 12345;
+        std::cout << "REG" << std::endl;
+        mineGenesisBlock(genesis);
         hashGenesisBlock = genesis.GetHash();
         nDefaultPort = 51476;
 //        assert(hashGenesisBlock == uint256("0x4f023a2120d9127b21bbad01724fdb79b519f593f2a85b60d3d79160ec5f29df"));
