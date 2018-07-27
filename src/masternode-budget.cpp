@@ -789,13 +789,13 @@ CAmount CBudgetManager::GetTotalBudget(int nHeight)
 {
     if (chainActive.Tip() == NULL) return 0;
 
-    int height = nHeight + 1;
-    if (height <= 172800)
+    if ((nHeight + 1) <= 172800)
         return 0;
 
     // Amount of blocks in a months period of time (using 1.5 minutes per)
+    // 10% of block value * blocks per day * 30 days
     CAmount blockValue = GetBlockValue(nHeight);
-    return ((blockValue / 100) * 10) * 960 * 30;
+    return (blockValue / 100 * 10) * 960 * 30;
 }
 
 void CBudgetManager::NewBlock()
