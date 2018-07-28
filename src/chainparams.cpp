@@ -102,10 +102,10 @@ public:
         nTargetTimespan = 1 * 90; // Vulcano: 1.5 minutes
         nTargetSpacingSlowLaunch = 5 * 90;  // Vulcano: 7.5 minutes (Slow launch - Block 300)
 	    nTargetSpacing = 1 * 90; // Vulcano: 1.5min after block 300
-        nLastPOWBlock = 1; // Vulcano: straight to PoS
-        nLastPOWBlockOld = 1; // Vulcano: straight to PoS
-		nLastSeeSawBlock = 1; // Vulcano: straight to PoS split rewards
-	    nRampToBlock = 1; // Slow start, ramp linearly to this block
+        nLastPOWBlock = 100; // Vulcano: straight to PoS
+        nLastPOWBlockOld = 100; // Vulcano: straight to PoS
+		nLastSeeSawBlock = 0; // Vulcano: straight to PoS split rewards
+	    nRampToBlock = 0; // Slow start, ramp linearly to this block
         nMaturity = 66; // 99 Minutes
 	    nMasternodeCountDrift = 4;
         nModifierUpdateBlock = 1;
@@ -194,8 +194,8 @@ public:
 	    vAlertPubKey = ParseHex("04795fde7bfc6347248a901aca81dd6a9f3acdeb5272f1c831f5147b139a4e1bacaa253541d9ebdfba982fb5cc45df3e34a8e98cdce9329037f009af217bc64ed9");
         nDefaultPort = 62443;
         nMinerThreads = 0;
-        nTargetTimespan = 1 * 30; // 30 Seconds
-        nTargetSpacing = 1 * 30;  // 30 Seconds
+        nTargetTimespan = 1 * 10; // 10 Seconds
+        nTargetSpacing = 1 * 10;  // 10 Seconds
 	    nTargetSpacingSlowLaunch = 1 * 30; // Kludgy but don't want to check for testnet each time in GetNextWorkRequired
 
         nMaturity = 15;
