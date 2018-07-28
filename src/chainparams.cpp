@@ -95,7 +95,7 @@ public:
         pchMessageStart[2] = 0x01;
         pchMessageStart[3] = 0x17;
 	    vAlertPubKey = ParseHex("04579f18934b3ef39094a9999e45506a1935662d0cd4e504d07beb53b8a1bfd78d81bee47e65119318397809420d5320e3c7b2aaae58580db48c38a4e6d4f0f919");
-        nDefaultPort = 52543;
+        nDefaultPort = 62543;
         bnProofOfWorkLimit = ~uint256(0) >> 20; // Vulcano starting difficulty is 1 / 2^12
         nMaxReorganizationDepth = 100;
         nMinerThreads = 0;
@@ -192,7 +192,7 @@ public:
         pchMessageStart[3] = 0xa0;
 
 	    vAlertPubKey = ParseHex("04795fde7bfc6347248a901aca81dd6a9f3acdeb5272f1c831f5147b139a4e1bacaa253541d9ebdfba982fb5cc45df3e34a8e98cdce9329037f009af217bc64ed9");
-        nDefaultPort = 42133;
+        nDefaultPort = 62443;
         nMinerThreads = 0;
         nTargetTimespan = 1 * 30; // 30 Seconds
         nTargetSpacing = 1 * 30;  // 30 Seconds
