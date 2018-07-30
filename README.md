@@ -33,7 +33,7 @@ Vulcano offers both SwiftTX and Obfuscation to enable speedy transactions with a
 | Subsidy      | Block  | PoW  | MN  | Circulation  |
 |--------------|--------|------|-----|--------------|
 | 330,000,000  | 1      | 100% | NA  | 333,000,000  |
-| 1000.0       | 2-100  | 35%  | 65% | 333,098,000  |
+| 1000.0       | 2-100  | 35%  | 65% | 333,099,000  |
 
 ## PoS Block Rewards
 
