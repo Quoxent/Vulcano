@@ -102,10 +102,11 @@ public:
         nTargetTimespan = 1 * 90; // Vulcano: 1.5 minutes
         nTargetSpacingSlowLaunch = 5 * 90;  // Vulcano: 7.5 minutes (Slow launch - Block 300)
 	    nTargetSpacing = 1 * 90; // Vulcano: 1.5min after block 300
-        nLastPOWBlock = 100; // Vulcano: straight to PoS
-        nLastPOWBlockOld = 100; // Vulcano: straight to PoS
-		nLastSeeSawBlock = 0; // Vulcano: straight to PoS split rewards
-	    nRampToBlock = 0; // Slow start, ramp linearly to this block
+        nLastPOWBlock = 960; // Vulcano: 1 day PoW
+        nLastPOWBlockOld = 960; // Vulcano: 1 day PoW
+		nLastSeeSawBlock = 0; // Vulcano: straight to split rewards
+	    nFirstBudgetBlock = 172801; // Vulcano: starting budget height
+        nRampToBlock = 0; // Slow start, ramp linearly to this block
         nMaturity = 66; // 99 Minutes
 	    nMasternodeCountDrift = 4;
         nModifierUpdateBlock = 1;
@@ -197,6 +198,10 @@ public:
         nTargetTimespan = 1 * 10; // 10 Seconds
         nTargetSpacing = 1 * 10;  // 10 Seconds
 	    nTargetSpacingSlowLaunch = 1 * 30; // Kludgy but don't want to check for testnet each time in GetNextWorkRequired
+
+	    nLastPOWBlock = 100;
+        nLastPOWBlockOld = 100;
+	    nFirstBudgetBlock = 701;
 
         nMaturity = 15;
         nRampToBlock = 100;

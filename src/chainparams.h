@@ -76,6 +76,7 @@ public:
     int LAST_POW_BLOCK() const { return nLastPOWBlock; }
     int LAST_POW_BLOCK_OLD() const { return nLastPOWBlockOld; }
     int LAST_SEESAW_BLOCK() const { return nLastSeeSawBlock; }
+    int FIRST_BUDGET_BLOCK() const { return nFirstBudgetBlock; }
     /** Slow Start, Ramp up linearly to block **/
     int RAMP_TO_BLOCK() const { return nRampToBlock; }
     int COINBASE_MATURITY() const { return nMaturity; }
@@ -116,6 +117,7 @@ protected:
     int nLastPOWBlock;
     int nLastPOWBlockOld;
     int nLastSeeSawBlock;
+    int nFirstBudgetBlock;
     int nRampToBlock;
     int nMasternodeCountDrift;
     int nMaturity;

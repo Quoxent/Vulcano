@@ -792,10 +792,13 @@ CAmount CBudgetManager::GetTotalBudget(int nHeight)
     if ((nHeight + 1) <= 172800)
         return 0;
 
-    // Amount of blocks in a months period of time (using 1.5 minutes per)
+    // how many blocks per day
+    int64_t nBlocksPerDay = 86400 / Params().TargetSpacing();
+
+    // amount of blocks in a months period of time (using 1.5 minutes per)
     // 10% of block value * blocks per day * 30 days
     CAmount blockValue = GetBlockValue(nHeight);
-    return (blockValue / 100 * 10) * 960 * 30;
+    return (blockValue / 100 * 10) * nBlocksPerDay * 30;
 }
 
 void CBudgetManager::NewBlock()

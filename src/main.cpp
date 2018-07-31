@@ -1618,86 +1618,63 @@ int64_t GetBlockValue(int nHeight)
 
     // testnet
     if (Params().NetworkID() == CBaseChainParams::TESTNET) {
-        if (height == 1) {
-            value = 330000000 * COIN;
-        } else if (height >= 2 && height <= 172) {
-            value = 1000 * COIN;
-        } else if (height >= 173 && height <= 345) {
-            value = 750 * COIN;
-        } else if (height >= 346 && height <= 518) {
-            value = 562.5 * COIN;
-        } else if (height >= 519) {
+        if (height == 1)
+            value = 95000000 * COIN;
+        else if (height >= 2 && height <= 172) 
             value = 500 * COIN;
-        }
-
-        // Budget withhold 5%
-        if (height >= 701) {
-            value -= value / 100 * 5;
-        }
-
-        return value;
+        else if (height >= 173 && height <= 345) 
+            value = 375 * COIN;
+        else if (height >= 346 && height <= 518) 
+            value = 281.25 * COIN;
+        else if (height >= 519) 
+            value = 210.938 * COIN;
     }
-
-    // mainnet
-    if (height == 1) {
-        value = 330000000 * COIN;
-    } else if (height >= 2 && height <= 172800) {
-        value = 1000 * COIN;
-    } else if (height >= 172801 && height <= 345600) {
-        value = 750 * COIN;
-    } else if (height >= 345601 && height <= 518400) {
-        value = 562.5 * COIN;
-    } else if (height >= 518401 && height <= 691200) {
-        value = 421.88 * COIN;
-    } else if (height >= 691201 && height <= 864000) {
-        value = 316.41 * COIN;
-    } else if (height >= 864001 && height <= 1036800) {
-        value = 237.30 * COIN;
-    } else if (height >= 1036801 && height <= 1209600) {
-        value = 177.98 * COIN;
-    } else if (height >= 1209601 && height <= 1382400) {
-        value = 133.48 * COIN;
-    } else if (height >= 1382401 && height <= 1555200) {
-        value = 100.11 * COIN;
-    } else if (height >= 1555201 && height <= 1728000) {
-        value = 75.08 * COIN;
-    } else if (height >= 1728001) {
-        value = 37.54 * COIN;
+    // mainnet, etc.
+    else {
+        if (height == 1)
+            value = 95000000 * COIN;
+        else if (height >= 2 && height <= 172800)
+            value = 500 * COIN;
+        else if (height >= 172801 && height <= 345600) 
+            value = 375 * COIN;
+        else if (height >= 345601 && height <= 518400) 
+            value = 281.25 * COIN;
+        else if (height >= 518401 && height <= 691200) 
+            value = 210.938 * COIN;
+        else if (height >= 691201 && height <= 864000) 
+            value = 158.203 * COIN;
+        else if (height >= 864001 && height <= 1036800) 
+            value = 118.652 * COIN;
+        else if (height >= 1036801 && height <= 1209600) 
+            value = 88.989 * COIN;
+        else if (height >= 1209601 && height <= 1382400) 
+            value = 66.742 * COIN;
+        else if (height >= 1382401 && height <= 1555200) 
+            value = 50.056 * COIN;
+        else if (height >= 1555201 && height <= 1728000) 
+            value = 37.54 * COIN;
+        else if (height >= 1728001) 
+            value = 18.771 * COIN;
     }
 
     // Budget withhold 5%
-    if (height >= 172801) {
+    if (height >= Params().FIRST_BUDGET_BLOCK())
         value -= value / 100 * 5;
-    }
 
     return value;
 }
 
 int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCount)
 {
+    int budgetHeight = Params().FIRST_BUDGET_BLOCK();
     int height = nHeight + 1;
     int64_t payment = 0;
 
-    // testnet
-    if (Params().NetworkID() == CBaseChainParams::TESTNET) {
-        if (height >= 2 && height <= 691) {
-            payment = blockValue / 100 * 65;
-        // Budget withhold 5%
-        } else if (height >= 701) {
-            payment = blockValue / 100 * 60;
-        }
-
-        return payment;
-    }
-
-    // mainnet
-    if (height >= 2 && height <= 172800) {
+    if (height >= 2 && height < budgetHeight)
         payment = blockValue / 100 * 65;
-    } 
     // Budget withhold 5%
-    else if (height >= 172801) {
+    else if (height >= budgetHeight)
         payment = blockValue / 100 * 60;
-    }
 
     return payment;
 }
