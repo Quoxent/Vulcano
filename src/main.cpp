@@ -1616,6 +1616,29 @@ int64_t GetBlockValue(int nHeight)
     int height = nHeight + 1;
     int64_t value = 0;
 
+    // testnet
+    if (Params().NetworkID() == CBaseChainParams::TESTNET) {
+        if (height == 1) {
+            value = 330000000 * COIN;
+        } else if (height >= 2 && height <= 172) {
+            value = 1000 * COIN;
+        } else if (height >= 173 && height <= 345) {
+            value = 750 * COIN;
+        } else if (height >= 346 && height <= 518) {
+            value = 562.5 * COIN;
+        } else if (height >= 519) {
+            value = 500 * COIN;
+        }
+
+        // Budget withhold 5%
+        if (height >= 701) {
+            value -= value / 100 * 5;
+        }
+
+        return value;
+    }
+
+    // mainnet
     if (height == 1) {
         value = 330000000 * COIN;
     } else if (height >= 2 && height <= 172800) {
@@ -1655,6 +1678,19 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
     int height = nHeight + 1;
     int64_t payment = 0;
 
+    // testnet
+    if (Params().NetworkID() == CBaseChainParams::TESTNET) {
+        if (height >= 2 && height <= 691) {
+            payment = blockValue / 100 * 65;
+        // Budget withhold 5%
+        } else if (height >= 701) {
+            payment = blockValue / 100 * 60;
+        }
+
+        return payment;
+    }
+
+    // mainnet
     if (height >= 2 && height <= 172800) {
         payment = blockValue / 100 * 65;
     } 
