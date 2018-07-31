@@ -1,8 +1,4 @@
-![Vulcano Logo](https://vulcanocrypto.com/wp-content/uploads/2018/03/Badge-Full-Color.svg)
-
 Vulcano Cryptocurrency
-&middot;
-[![GitHub license](https://img.shields.io/github/license/vulcano-crypto/Vulcano.svg)](https://github.com/vulcano-crypto/Vulcano/blob/master/COPYING) [![Build Status](https://travis-ci.org/vulcano-crypto/Vulcano.svg?branch=master)](https://travis-ci.org/vulcano-crypto/Vulcano) [![GitHub version](https://badge.fury.io/gh/vulcano-crypto%2FVulcano.svg)](https://badge.fury.io/gh/vulcano-crypto%2FVulcano) [![Discord](https://img.shields.io/discord/374271866308919296.svg)](https://discord.me/vulcanocrypto)
 =====
 
 Vulcano (VULC) is a privacy oriented digital currency with Masternodes implemented.
