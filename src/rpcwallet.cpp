@@ -1989,7 +1989,7 @@ Value setstakesplitthreshold(const Array& params, bool fHelp)
             "  \"saved\": true|false    (boolean) 'true' if successfully saved to the wallet file\n"
             "}\n"
             "\nExamples:\n" +
-            HelpExampleCli("setstakesplitthreshold", "5000") + HelpExampleRpc("setstakesplitthreshold", "5000"));
+            HelpExampleCli("setstakesplitthreshold", "20000") + HelpExampleRpc("setstakesplitthreshold", "20000"));
 
     uint64_t nStakeSplitThreshold = params[0].get_int();
     if (pwalletMain->IsLocked())
