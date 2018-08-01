@@ -359,11 +359,12 @@ QHeaderView::section:last {
 	color: #fff;
 }
 QTableView::item {
-	font-size: 12px
+	font-size: 12px;
+	color: #c2c2c2;
 }
 QTableView::item:selected {
-	background-color: #ddd;
-	color: ffff;
+	background-color: rgba(255, 255, 255, 0.1);
+	color: #fff;
 }
 QTableWidget {
 	background-color: transparent;
