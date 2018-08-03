@@ -1,106 +1,207 @@
-sudo: required
+language: cpp
 dist: trusty
-group: deprecated-2017Q3
-os:
-- linux
-language: generic
+sudo: false
+branches:
+  only:
+  - master
 cache:
-  apt: true
   ccache: true
   directories:
   - depends/built
   - depends/sdk-sources
   - "$HOME/.ccache"
+addons:
+  apt:
+    sources:
+    - ppa:bitcoin/bitcoin
+    packages:
+    - autoconf
+    - autotools-dev
+    - binutils
+    - bsdmainutils
+    - build-essential
+    - cmake
+    - curl
+    - libboost-all-dev
+    - libbz2-dev
+    - libcap-dev
+    - libdb4.8-dev
+    - libdb4.8++-dev
+    - libevent-dev
+    - libssl-dev
+    - libtool
+    - linux-libc-dev
+    - miniupnpc
+    - pkg-config
+    - python-dev
+    - python-setuptools
+    - python3
+    - python3-zmq
+    - zlib1g-dev
 env:
   global:
-  - MAKEJOBS=-j5
-  - RUN_TESTS=false
-  - BOOST_TEST_RANDOM=1$TRAVIS_BUILD_ID
-  - CCACHE_SIZE=400M
-  - CCACHE_TEMPDIR=/tmp/.ccache-temp
+  - VULCANO_VERSION=2.0.0.0
   - CCACHE_COMPRESS=1
-  - BASE_OUTDIR=$TRAVIS_BUILD_DIR/out
-  - SDK_URL=https://github.com/phracker/MacOSX-SDKs/releases/download/10.13/
-  - PYTHON_DEBUG=1
-  - WINEDEBUG=fixme-all
-  matrix:
-  - HOST=arm-linux-gnueabihf PPA="ppa:bitcoin/bitcoin" PACKAGES="g++-arm-linux-gnueabihf"
-    CHECK_DOC=1 GOAL="install" BITCOIN_CONFIG="--enable-glibc-back-compat --enable-reduce-exports"
-  - HOST=i686-pc-linux-gnu PPA="ppa:bitcoin/bitcoin" PACKAGES="g++-multilib bc python3-zmq"
-    RUN_TESTS=false GOAL="install" BITCOIN_CONFIG="--enable-zmq --enable-glibc-back-compat
-    --enable-reduce-exports LDFLAGS=-static-libstdc++" PYZMQ=true
-  - HOST=x86_64-unknown-linux-gnu PPA="ppa:bitcoin/bitcoin" PACKAGES="bc python3-zmq"
-    RUN_TESTS=false GOAL="install" BITCOIN_CONFIG="--enable-zmq --enable-glibc-back-compat
-    --enable-reduce-exports" CPPFLAGS="-DDEBUG_LOCKORDER -DENABLE_DASH_DEBUG" PYZMQ=true
-  - HOST=i686-w64-mingw32 DPKG_ADD_ARCH="i386" PPA="ppa:bitcoin/bitcoin" PACKAGES="python3
-    nsis g++-mingw-w64-i686 wine1.7 bc" RUN_TESTS=false GOAL="install" BITCOIN_CONFIG="--enable-gui
-    --enable-reduce-exports" MAKEJOBS="-j4" WINE=true
-  - HOST=x86_64-w64-mingw32 DPKG_ADD_ARCH="i386" PPA="ppa:bitcoin/bitcoin" PACKAGES="python3
-    nsis g++-mingw-w64-x86-64 wine1.7 bc" RUN_TESTS=false GOAL="install" BITCOIN_CONFIG="--enable-gui
-    --enable-reduce-exports" MAKEJOBS="-j4" WINE=true
+  - CCACHE_SIZE=500M
+  - CCACHE_TEMPDIR=/tmp/.ccache-temp
+  - MAKEJOBS="-s -j 2"
+matrix:
+  include:
+  - name: Linux ARM 32 Bit
+    addons:
+      apt:
+        packages:
+        - g++-arm-linux-gnueabihf
+        - binutils-arm-linux-gnueabihf
+    env: 
+      - VULCANO_CONFIG="--enable-glibc-back-compat --with-gui=no" 
+      - HOST=arm-linux-gnueabihf 
+      - LABEL=ARM
+    os: linux
+  - name: Linux i686 32 Bit
+    addons:
+      apt:
+        packages:
+        - bc
+        - g++-multilib
+        - libprotobuf-dev
+        - libqrencode-dev
+        - python3-zmq
+        - qtdeclarative5-dev
+    env: 
+      - VULCANO_CONFIG="--enable-zmq --enable-glibc-back-compat LDFLAGS=-static-libstdc++ --with-gui=qt5" 
+      - HOST=i686-pc-linux-gnu 
+      - LABEL=linux32
+      - PYZMQ=true 
+    os: linux
+  - name: Linux x86 64 Bit
+    addons:
+      apt:
+        packages:
+        - bc
+        - libprotobuf-dev
+        - libqrencode-dev
+        - python3-zmq
+        - qtdeclarative5-dev
+    env: 
+      - VULCANO_CONFIG="--enable-zmq --enable-glibc-back-compat --with-gui=qt5" 
+      - CPPFLAGS="-DDEBUG_LOCKORDER -DENABLE_DASH_DEBUG" 
+      - HOST=x86_64-pc-linux-gnu 
+      - LABEL=linux64
+      - PYZMQ=true 
+    os: linux
+  - name: Windows i686 32 Bit
+    addons:
+      apt:
+        packages:
+        - g++-mingw-w64-i686 bc
+        - libprotobuf-dev
+        - libqrencode-dev
+        - linux-libc-dev:i386
+        - nsis
+        - python3
+        - qtdeclarative5-dev
+    env: 
+      - VULCANO_CONFIG="--with-gui=qt5"
+      - HOST=i686-w64-mingw32 
+      - LABEL=win32
+    os: linux
+  - name: Windows x86 64 Bit
+    addons:
+      apt:
+        packages:
+        - bc
+        - g++-mingw-w64-x86-64
+        - libprotobuf-dev
+        - libqrencode-dev
+        - linux-libc-dev:i386
+        - nsis
+        - python3
+        - qtdeclarative5-dev
+    env: 
+      - VULCANO_CONFIG="--with-gui=qt5"
+      - HOST=x86_64-w64-mingw32 
+      - LABEL=win64
+    os: linux
+  - name: macOS x86 64 Bit
+    env: 
+      - HOST=x86_64-apple-darwin
+      - LABEL=macOS
+    os: osx
+    osx_image: xcode9.2
 before_install:
-- travis_retry sudo apt-get install python-dev
-- travis_retry sudo add-apt-repository ppa:ubuntu-wine/ppa -y
-- export PATH=$(echo $PATH | tr ':' "\n" | sed '/\/opt\/python/d' | tr "\n" ":" |
-  sed "s|::|:|g")
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then 
+    brew update; 
+  fi
 install:
-- if [ "$PYZMQ" = "true" ]; then pip install pyzmq --user ; fi
-- if [ -n "$PPA" ]; then travis_retry sudo add-apt-repository "$PPA" -y; fi
-- if [ -n "$DPKG_ADD_ARCH" ]; then sudo dpkg --add-architecture "$DPKG_ADD_ARCH" ;
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then 
+    brew uninstall mercurial python; 
+    brew bundle; 
+    brew link --overwrite --force boost@1.57; 
   fi
-- if [ -n "$PACKAGES" ]; then travis_retry sudo apt-get update; fi
-- if [ -n "$PACKAGES" ]; then travis_retry sudo apt-get install --no-install-recommends
-  --no-upgrade -qq $PACKAGES; fi
+- if [ "$PYZMQ" = "true" ]; then 
+    pip install pyzmq --user ; 
+  fi
 before_script:
-- unset CC; unset CXX
-- unset DISPLAY
-- mkdir -p depends/SDKs depends/sdk-sources
-- if [ -n "$OSX_SDK" -a ! -f depends/sdk-sources/MacOSX${OSX_SDK}.sdk.tar.xz ]; then
-  curl --location --fail $SDK_URL/MacOSX${OSX_SDK}.sdk.tar.xz -o depends/sdk-sources/MacOSX${OSX_SDK}.sdk.tar.xz;
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then 
+    unset CC CXX DISPLAY; 
   fi
-- if [ -n "$OSX_SDK" -a -f depends/sdk-sources/MacOSX${OSX_SDK}.sdk.tar.xz ]; then
-  tar -C depends/SDKs -xf depends/sdk-sources/MacOSX${OSX_SDK}.sdk.tar.xz; fi
-- make $MAKEJOBS -C depends HOST=$HOST $DEP_OPTS
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then 
+    export LDFLAGS=-L/usr/local/opt/openssl/lib;
+    export CPPFLAGS=-I/usr/local/opt/openssl/include; 
+  fi
+- GLOBAL_CONFIG="--enable-reduce-exports --enable-tests --prefix=$TRAVIS_BUILD_DIR/depends/$HOST"
 script:
-- if [ -n "$USE_SHELL" ]; then export CONFIG_SHELL="$USE_SHELL"; fi
-- OUTDIR=$BASE_OUTDIR/$TRAVIS_PULL_REQUEST/$TRAVIS_JOB_NUMBER-$HOST
-- BITCOIN_CONFIG_ALL="--disable-dependency-tracking --prefix=$TRAVIS_BUILD_DIR/depends/$HOST
-  --bindir=$OUTDIR/bin --libdir=$OUTDIR/lib"
-- depends/$HOST/native/bin/ccache --max-size=$CCACHE_SIZE
-- test -n "$USE_SHELL" && eval '"$USE_SHELL" -c "./autogen.sh"' || ./autogen.sh
-- "./configure --cache-file=config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG || (
-  cat config.log && false)"
-- make distdir PACKAGE=vulcano VERSION=$HOST
-- cd vulcano-$HOST
-- "./configure --cache-file=../config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG ||
-  ( cat config.log && false)"
-- make $MAKEJOBS $GOAL || ( echo "Build failure. Verbose build follows." && make $GOAL
-  V=1 ; false )
-- export LD_LIBRARY_PATH=$TRAVIS_BUILD_DIR/depends/$HOST/lib
-- if [ "$RUN_TESTS" = "true" -a "$WINE" != "true" ]; then make $MAKEJOBS check VERBOSE=1;
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then 
+    make $MAKEJOBS -C depends HOST="$HOST";
+    depends/$HOST/native/bin/ccache --max-size=$CCACHE_SIZE; sh ./autogen.sh;
+    ./configure --cache-file=config.cache $GLOBAL_CONFIG $VULCANO_CONFIG; 
+    make; 
   fi
-- if [ "$RUN_TESTS" = "true" -a "$WINE" = "true" ]; then wine  src/test/test_vulcano.exe;
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then 
+    sh ./autogen.sh; 
+    ./configure --enable-reduce-exports;
+    make deploy; 
   fi
-- if [ "$RUN_TESTS" = "true" ]; then qa/pull-tester/rpc-tests.py --coverage; fi
-after_script:
-- if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then (echo "Upload goes here. Something like: scp
-    -r $BASE_OUTDIR server" || echo "upload failed"); fi
-- echo $TRAVIS_COMMIT_RANGE
-- echo $TRAVIS_COMMIT_LOG
-before_deply:
-- cd ..
-- git config --local user.name "dustinengle"
-- git config --local user.email "dustin.engle@gmail.com"
-- git tag "v2.0.0.0"
-- tar -zcvf vulcano-2.0.0.0-$HOST.tar.gz -C $OUTDIR bin/
-- echo `pwd`
+before_deploy:
+- find . -name "vulcano-*"
+- mkdir -p $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION
+- mkdir $TRAVIS_BUILD_DIR/deploy
+- if [[ $HOST =~ linux ]]; then 
+    cp $TRAVIS_BUILD_DIR/src/vulcano-cli $TRAVIS_BUILD_DIR/src/vulcano-tx $TRAVIS_BUILD_DIR/src/vulcanod $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION;
+    if [[ -f $TRAVIS_BUILD_DIR/src/qt/vulcano-qt ]]; then 
+      cp $TRAVIS_BUILD_DIR/src/qt/vulcano-qt $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION; 
+    fi;
+    if command -v arm-linux-gnueabihf-strip; then 
+      arm-linux-gnueabihf-strip -s $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION/*;
+    else 
+      strip -s $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION/*; 
+    fi; 
+    cd $TRAVIS_BUILD_DIR/stage && tar czf vulcano-$VULCANO_VERSION-$LABEL.tar.gz ./vulcano-$VULCANO_VERSION && cd $TRAVIS_BUILD_DIR;
+    mv $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION-$LABEL.tar.gz $TRAVIS_BUILD_DIR/deploy/;
+  fi
+- if [[ $HOST =~ mingw32 ]]; then 
+    cp $TRAVIS_BUILD_DIR/src/vulcano-cli.exe $TRAVIS_BUILD_DIR/src/vulcano-tx.exe $TRAVIS_BUILD_DIR/src/vulcanod.exe $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION;
+    if [[ -f $TRAVIS_BUILD_DIR/src/qt/vulcano-qt.exe ]]; then 
+      cp $TRAVIS_BUILD_DIR/src/qt/vulcano-qt.exe $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION; 
+    fi; 
+    cd $TRAVIS_BUILD_DIR/stage && zip vulcano-$VULCANO_VERSION-$LABEL.zip ./vulcano-$VULCANO_VERSION/* && cd $TRAVIS_BUILD_DIR; 
+    mv $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION-$LABEL.zip $TRAVIS_BUILD_DIR/deploy/;
+    ls -la $TRAVIS_BUILD_DIR/deploy;
+  fi
+- if [[ $HOST =~ apple ]]; then 
+    mv $TRAVIS_BUILD_DIR/Vulcano-Qt.dmg $TRAVIS_BUILD_DIR/deploy/vulcano-$VULCANO_VERSION-$LABEL.dmg;
+  fi
 deploy:
   provider: releases
   file_glob: true
   api_key:
     secure: Nje5PWZB3qMXFZwk2EjHh/xbXg0U/Mhqn5W1aYc/YBTTMVF4w9SeL+VRkhQmfUiDheQbS896xM+wh+4UxYhCoXTfWb9druyTJBy1JtTV3iYunJPZfvvXVVmV6+8b6PGUVdwGh514gn2FHqv9NuhV2vTADb6ry6Asgp72nupZjpyg4w2DEhvd4FXbfuIRWPKQ5c8WJ15rfaWH0Q+LSAe9zlpUx5gJz6YTZg88En7dTNDue3Zqjw2/XQJmQlK/WGCM8Bc4/29uangBXUjbcFzmAAUt4OQ9f/eCd9SVcTbvosbL06HI3QXnpWveHjyJs3ELOyDtL2+hGmx5DEI2s/9F8s8/2HBAs9b7m8tr3/q+qPyU7kJHWGE6nBcbdoVtasGT+Q7iJbJSsvJUikss/WQ+0qocC+WQzlfY/NHlLQ/UWTxraK5agdp2EhzwI6euPs/CboSXinqrszgAZ4hbvP2fA0eloF1NQmuF+GqnLE/yvjg4YPzhwP07PzqmsfM2mJ7+6uAROjt/wxeyJuChIt1pGZHFUQ8E06dDHTDsoi8uSz1zD1gxOxfPcewlNYnSKZx8RL/3KlAVIQ37sxWwuGndXaaU7deoATzJLWGn2QabPWE+RJC+i+CjXLbwDs8v0YX2l19JE3qXWVKEF4ZY75d4Vo2pSeLyoKJDMKZs3bUK/bI=
-  file: vulcano-2.0.0.0-*
+  file: deploy/*
+  name: "vulcano-${VULCANO_VERSION}"
+  tag_name: "v${VULCANO_VERSION}" 
   skip_cleanup: true
+  overwrite: true
   on:
     repo: dustinengle/v
     branch: master
