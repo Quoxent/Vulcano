@@ -83,6 +83,24 @@ script:
   fi
 - if [ "$RUN_TESTS" = "true" ]; then qa/pull-tester/rpc-tests.py --coverage; fi
 after_script:
-    - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then (echo "Upload goes here. Something like: scp -r $BASE_OUTDIR server" || echo "upload failed"); fi
-    - echo $TRAVIS_COMMIT_RANGE
-    - echo $TRAVIS_COMMIT_LOG
+- if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then (echo "Upload goes here. Something like: scp
+    -r $BASE_OUTDIR server" || echo "upload failed"); fi
+- echo $TRAVIS_COMMIT_RANGE
+- echo $TRAVIS_COMMIT_LOG
+before_deply:
+- cd ..
+- git config --local user.name "dustinengle"
+- git config --local user.email "dustin.engle@gmail.com"
+- git tag "v2.0.0.0"
+- tar -zcvf vulcano-2.0.0.0-$HOST.tar.gz -C $OUTDIR bin/
+- echo `pwd`
+deploy:
+  provider: releases
+  file_glob: true
+  api_key:
+    secure: Nje5PWZB3qMXFZwk2EjHh/xbXg0U/Mhqn5W1aYc/YBTTMVF4w9SeL+VRkhQmfUiDheQbS896xM+wh+4UxYhCoXTfWb9druyTJBy1JtTV3iYunJPZfvvXVVmV6+8b6PGUVdwGh514gn2FHqv9NuhV2vTADb6ry6Asgp72nupZjpyg4w2DEhvd4FXbfuIRWPKQ5c8WJ15rfaWH0Q+LSAe9zlpUx5gJz6YTZg88En7dTNDue3Zqjw2/XQJmQlK/WGCM8Bc4/29uangBXUjbcFzmAAUt4OQ9f/eCd9SVcTbvosbL06HI3QXnpWveHjyJs3ELOyDtL2+hGmx5DEI2s/9F8s8/2HBAs9b7m8tr3/q+qPyU7kJHWGE6nBcbdoVtasGT+Q7iJbJSsvJUikss/WQ+0qocC+WQzlfY/NHlLQ/UWTxraK5agdp2EhzwI6euPs/CboSXinqrszgAZ4hbvP2fA0eloF1NQmuF+GqnLE/yvjg4YPzhwP07PzqmsfM2mJ7+6uAROjt/wxeyJuChIt1pGZHFUQ8E06dDHTDsoi8uSz1zD1gxOxfPcewlNYnSKZx8RL/3KlAVIQ37sxWwuGndXaaU7deoATzJLWGn2QabPWE+RJC+i+CjXLbwDs8v0YX2l19JE3qXWVKEF4ZY75d4Vo2pSeLyoKJDMKZs3bUK/bI=
+  file: vulcano-2.0.0.0-*
+  skip_cleanup: true
+  on:
+    repo: dustinengle/v
+    branch: master
