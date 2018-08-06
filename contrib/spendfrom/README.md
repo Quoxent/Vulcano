@@ -7,7 +7,7 @@ address (or addresses).
 Depends on [jsonrpc](http://json-rpc.org/).
 
 	spendfrom.py --from=FROMADDRESS1[,FROMADDRESS2] --to=TOADDRESS --amount=amount \
-	             --fee=fee --datadir=/path/to/.vulcano_2_0 --testnet --dry_run
+	             --fee=fee --datadir=/path/to/.vulcanocore --testnet --dry_run
 
 With no arguments, outputs a list of amounts associated with addresses.
 

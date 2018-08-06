@@ -122,7 +122,7 @@ If you generated a new masternode private key, you will need to update the remot
 
 Shut down the daemon and then edit the file.
 
-```sudo nano .vulcano_2_0/vulcano.conf```
+```sudo nano .vulcanocore/vulcano.conf```
 
 ### Edit the masternodeprivkey
 If you generated a new masternode private key, you will need to update the masternodeprivkey value in your remote vulcano.conf file.

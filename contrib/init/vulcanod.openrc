@@ -2,8 +2,8 @@
 
 # backward compatibility for existing gentoo layout
 #
-if [ -d "/var/lib/vulcano/.vulcano_2_0" ]; then
-	BITCOIND_DEFAULT_DATADIR="/var/lib/vulcano/.vulcano_2_0"
+if [ -d "/var/lib/vulcano/.vulcanocore" ]; then
+	BITCOIND_DEFAULT_DATADIR="/var/lib/vulcano/.vulcanocore"
 else
 	BITCOIND_DEFAULT_DATADIR="/var/lib/vulcanod"
 fi
