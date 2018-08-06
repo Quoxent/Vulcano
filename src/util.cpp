@@ -420,7 +420,7 @@ boost::filesystem::path GetDefaultDataDir()
 // Windows < Vista: C:\Documents and Settings\Username\Application Data\Vulcano
 // Windows >= Vista: C:\Users\Username\AppData\Roaming\Vulcano
 // Mac: ~/Library/Application Support/Vulcano
-// Unix: ~/.vulcano
+// Unix: ~/.vulcano_2_0
 #ifdef WIN32
     // Windows
     return GetSpecialFolderPath(CSIDL_APPDATA) / "Vulcano";
@@ -438,7 +438,7 @@ boost::filesystem::path GetDefaultDataDir()
     return pathRet / "Vulcano";
 #else
     // Unix
-    return pathRet / ".vulcano";
+    return pathRet / ".vulcano_2_0";
 #endif
 #endif
 }

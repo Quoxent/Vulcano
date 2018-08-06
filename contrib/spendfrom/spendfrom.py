@@ -38,7 +38,7 @@ def determine_db_dir():
         return os.path.expanduser("~/Library/Application Support/Vulcano/")
     elif platform.system() == "Windows":
         return os.path.join(os.environ['APPDATA'], "Vulcano")
-    return os.path.expanduser("~/.vulcano")
+    return os.path.expanduser("~/.vulcano_2_0")
 
 def read_bitcoin_config(dbdir):
     """Read the vulcano.conf file from dbdir, returns dictionary of settings"""
