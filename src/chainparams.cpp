@@ -135,11 +135,11 @@ public:
         assert(hashGenesisBlock == uint256("0x000002c5551b617c4f02f6be4aa8a03e9a17fec08524bf4cf97fc6d9be5a856e"));
 	    assert(genesis.hashMerkleRoot == uint256("0x77976d6bd593c84063ac3937525bc15e25188d96871b13d4451ffc382999f64f"));
 
-        vSeeds.push_back(CDNSSeedData("vulcseed1.vulcanocrypto.com", "vulcseed1.vulcanocrypto.com"));      // Single node address
-        vSeeds.push_back(CDNSSeedData("vulcseed2.vulcanocrypto.com", "vulcseed2.vulcanocrypto.com")); 	   // Single node address
-        vSeeds.push_back(CDNSSeedData("vulcseed3.vulcanocrypto.com", "vulcseed3.vulcanocrypto.com"));      // Single node address
-	    vSeeds.push_back(CDNSSeedData("vulcseed4.vulcanocrypto.com", "vulcseed4.vulcanocrypto.com"));      // Single node address
-        vSeeds.push_back(CDNSSeedData("vulcseed5.vulcanocrypto.com", "vulcseed5.vulcanocrypto.com"));      // Single node address
+        vSeeds.push_back(CDNSSeedData("vulcseed1.vulcano.io", "vulcseed1.vulcano.io"));      // Single node address
+        vSeeds.push_back(CDNSSeedData("vulcseed2.vulcano.io", "vulcseed2.vulcano.io")); 	   // Single node address
+        vSeeds.push_back(CDNSSeedData("vulcseed3.vulcano.io", "vulcseed3.vulcano.io"));      // Single node address
+	    vSeeds.push_back(CDNSSeedData("vulcseed4.vulcano.io", "vulcseed4.vulcano.io"));      // Single node address
+        vSeeds.push_back(CDNSSeedData("vulcseed5.vulcano.io", "vulcseed5.vulcano.io"));      // Single node address
         vSeeds.push_back(CDNSSeedData("vulcseed1.vulcano.io", "vulcseed1.vulcano.io"));      // Single node address
         vSeeds.push_back(CDNSSeedData("vulcseed2.vulcano.io", "vulcseed2.vulcano.io")); 	 // Single node address
         vSeeds.push_back(CDNSSeedData("vulcseed3.vulcano.io", "vulcseed3.vulcano.io"));      // Single node address
@@ -221,7 +221,7 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        vSeeds.push_back(CDNSSeedData("test-node01.vulcanocrypto.com", "test-node01.vulcanocrypto.com"));
+        vSeeds.push_back(CDNSSeedData("test-node01.vulcano.io", "test-node01.vulcano.io"));
         vSeeds.push_back(CDNSSeedData("test-node01.vulcano.io", "test-node01.vulcano.io"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 65); // Testnet vulcano addresses start with 'T'

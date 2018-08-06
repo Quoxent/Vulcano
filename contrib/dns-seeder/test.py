@@ -2,11 +2,11 @@ import socket
 
 seeders = [
     'vulcseed.mempool.pw',
-    'vulcseed1.vulcanocrypto.com',
-    'vulcseed2.vulcanocrypto.com',
-    'vulcseed3.vulcanocrypto.com',
-    'vulcseed4.vulcanocrypto.com',
-    'vulcseed5.vulcanocrypto.com',
+    'vulcseed1.vulcano.io',
+    'vulcseed2.vulcano.io',
+    'vulcseed3.vulcano.io',
+    'vulcseed4.vulcano.io',
+    'vulcseed5.vulcano.io',
     'vulcseed1.vulcanocrypto.site',
     'vulcseed2.vulcanocrypto.site',
     'vulcseed3.vulcanocrypto.site',

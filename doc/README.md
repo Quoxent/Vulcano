@@ -3,7 +3,7 @@ Vulcano Core
 
 Setup
 ---------------------
-[Vulcano Core](https://www.vulcanocrypto.com/) is the original Vulcano client and it builds the backbone of the network. However, it downloads and stores the entire history of Vulcano transactions; depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more. Thankfully you only have to do this once.
+[Vulcano Core](https://www.vulcano.io/) is the original Vulcano client and it builds the backbone of the network. However, it downloads and stores the entire history of Vulcano transactions; depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more. Thankfully you only have to do this once.
 
 Running
 ---------------------
@@ -26,7 +26,7 @@ Drag Vulcano-Qt to your applications folder, and then run Vulcano-Qt.
 
 ### Need Help?
 
-* See the documentation at the [Vulcano KB](https://kb.vulcanocrypto.com)
+* See the documentation at the [Vulcano KB](https://kb.vulcano.io)
 for help and more information.
 * Ask for help on [BitcoinTalk](https://bitcointalk.org/index.php?topic=2499481.0) or on the [Vulcano Discord](https://discord.gg/a7vhegP).
 

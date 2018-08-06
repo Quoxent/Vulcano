@@ -50,7 +50,7 @@ static const int MAX_URI_LENGTH = 255;
 #define SPINNER_FRAMES 35
 
 #define QAPP_ORG_NAME "Vulcano"
-#define QAPP_ORG_DOMAIN "vulcano.com"
+#define QAPP_ORG_DOMAIN "vulcano.io"
 #define QAPP_APP_NAME_DEFAULT "Vulcano-Qt"
 #define QAPP_APP_NAME_TESTNET "Vulcano-Qt-testnet"
 

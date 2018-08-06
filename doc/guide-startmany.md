@@ -137,7 +137,7 @@ I usually confirm that remote is on the correct block by issuing:
 
 ```vulcanod getinfo```
 
-And compare with the official explorer at https://explorer.vulcanocrypto.com
+And compare with the official explorer at https://explorer.vulcano.io
 
 ### Local
 

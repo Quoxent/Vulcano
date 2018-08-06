@@ -25,7 +25,7 @@
  *
  * \section intro_sec Introduction
  *
- * This is the developer documentation of the reference client for an experimental new digital currency called Vulcano (http://www.vulcano.com),
+ * This is the developer documentation of the reference client for an experimental new digital currency called Vulcano (http://www.vulcano.io),
  * which enables instant payments to anyone, anywhere in the world. Vulcano uses peer-to-peer technology to operate
  * with no central authority: managing transactions and issuing money are carried out collectively by the network.
  *
