@@ -86,7 +86,7 @@ matrix:
         - qtdeclarative5-dev
     env:
     - VULCANO_CONFIG="--enable-zmq --enable-glibc-back-compat --with-gui=qt5"
-    - CPPFLAGS="-DDEBUG_LOCKORDER -DENABLE_DASH_DEBUG"
+    - CPPFLAGS="-DENABLE_DASH_DEBUG"
     - HOST=x86_64-pc-linux-gnu
     - LABEL=linux64
     - PYZMQ=true
