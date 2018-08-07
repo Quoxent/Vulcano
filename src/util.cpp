@@ -423,7 +423,7 @@ boost::filesystem::path GetDefaultDataDir()
 // Unix: ~/.vulcanocore
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "Vulcano";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "VulcanoCore";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -435,7 +435,7 @@ boost::filesystem::path GetDefaultDataDir()
     // Mac
     pathRet /= "Library/Application Support";
     TryCreateDirectory(pathRet);
-    return pathRet / "Vulcano";
+    return pathRet / "VulcanoCore";
 #else
     // Unix
     return pathRet / ".vulcanocore";
