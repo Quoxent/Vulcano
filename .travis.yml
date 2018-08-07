@@ -196,12 +196,12 @@ deploy:
   provider: releases
   file_glob: true
   api_key:
-    secure:mjfgtfttCLd2R/uiVQhReRwwp5IzYJO1vfhw7egncLctQqj5o/uepoFKtsp6kcvLJas3fwGjW5992kah2qPWSIbtmduXGcn9Q+b442ijmVYx8KSj1IIYsFzYDAPhPm9smTvwslORMfIbBQZGEbf5zbS9ujLijP0hsldBvys6iU1jFngdI1afwmXdI+nu0xcO+pspwosFH2BOPRCOeTHxeMrZf1IxDe2x9oh+i8XJcCgc80BCTKceuZRCZlJNd53UHyutUFRhfML5kCgbR222lUtCQw6l6N1ey/xm+m4j0mbfhEhhOthqBAV8mURotmblgQ+pkI2ErPUETLC0UlXGzgNG3LyAsi5nXb+/nQnXsiI4eegYbqwiw570qxmIco/2b8amv67Q+E73RFej2rcN/bTzp8FkGj7oHAARuT33PLEU+eTG40tRonANNW113uBI4OZMSOM14Db/S3J0QI27KWVSBpp14O/8uJbKMNmnvhWYpYdVc1zyGKWFG+FWzMGpHw0p+D+TFXABA32nOsu1hvZUCFeAyxkmDjczt2z7HArHSW8ZUyQpCs05EQxdq+AuH9qrrpjLyj2//yZpQ/8g6cvcVN6Wa2KMmjeltnpXzzK5zmAfi4PQDqyle6A9EoE+fDcVwu7Xpp4SXAJFWuWrNSP2F5GXhDZc/4KbWwUG+Ew=
+    secure:
   file: deploy/*
   name: "vulcano-${VULCANO_VERSION}"
   tag_name: "v${VULCANO_VERSION}" 
   skip_cleanup: true
   overwrite: true
   on:
-    repo: dustinengle/v
+    repo: masterhash-us/Vulcanocore
     branch: master
