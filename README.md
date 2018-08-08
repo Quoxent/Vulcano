@@ -10,8 +10,8 @@ Vulcano offers both SwiftTX and Obfuscation to enable speedy transactions.
 |-----------------------|--------------------------|
 | Ticker                | VULC                     |
 | Algorithm             | NIST5                    |
-| RPC Port              | 52541                    |
-| P2P Port              | 62543                    |
+| RPC Port              | 62541 (62441 testnet)    |
+| P2P Port              | 62543 (62443 testnet)    |
 | Block Spacing         | 90 Seconds               |
 | Difficulty Algorithm  | Dark Gravity Wave v3.0   |
 | Block Size            | 1MB                      |
