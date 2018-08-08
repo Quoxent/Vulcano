@@ -69,7 +69,7 @@ NumEntryGuards 8
 ```
 
 The directory can be different of course, but (both) port numbers should be equal to
-your vulcanod's P2P listen port (52541 by default).
+your vulcanod's P2P listen port (62541 by default).
 ```
 -externalip=X   You can tell vulcano about its publicly reachable address using
                 this option, and this can be a .onion address. Given the above

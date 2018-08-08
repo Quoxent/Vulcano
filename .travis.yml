@@ -53,10 +53,10 @@ matrix:
         packages:
         - g++-arm-linux-gnueabihf
         - binutils-arm-linux-gnueabihf
-    env: 
-      - VULCANO_CONFIG="--enable-glibc-back-compat --with-gui=no" 
-      - HOST=arm-linux-gnueabihf 
-      - LABEL=ARM
+    env:
+    - VULCANO_CONFIG="--enable-glibc-back-compat --with-gui=no"
+    - HOST=arm-linux-gnueabihf
+    - LABEL=ARM
     os: linux
   - name: Linux i686 32 Bit
     addons:
@@ -68,11 +68,12 @@ matrix:
         - libqrencode-dev
         - python3-zmq
         - qtdeclarative5-dev
-    env: 
-      - VULCANO_CONFIG="--enable-zmq --enable-glibc-back-compat LDFLAGS=-static-libstdc++ --with-gui=qt5" 
-      - HOST=i686-pc-linux-gnu 
-      - LABEL=linux32
-      - PYZMQ=true 
+    env:
+    - VULCANO_CONFIG="--enable-zmq --enable-glibc-back-compat LDFLAGS=-static-libstdc++
+      --with-gui=qt5"
+    - HOST=i686-pc-linux-gnu
+    - LABEL=linux32
+    - PYZMQ=true
     os: linux
   - name: Linux x86 64 Bit
     addons:
@@ -83,12 +84,12 @@ matrix:
         - libqrencode-dev
         - python3-zmq
         - qtdeclarative5-dev
-    env: 
-      - VULCANO_CONFIG="--enable-zmq --enable-glibc-back-compat --with-gui=qt5" 
-      - CPPFLAGS="-DDEBUG_LOCKORDER -DENABLE_DASH_DEBUG" 
-      - HOST=x86_64-pc-linux-gnu 
-      - LABEL=linux64
-      - PYZMQ=true 
+    env:
+    - VULCANO_CONFIG="--enable-zmq --enable-glibc-back-compat --with-gui=qt5"
+    - CPPFLAGS="-DENABLE_DASH_DEBUG"
+    - HOST=x86_64-pc-linux-gnu
+    - LABEL=linux64
+    - PYZMQ=true
     os: linux
   - name: Windows i686 32 Bit
     addons:
@@ -101,10 +102,10 @@ matrix:
         - nsis
         - python3
         - qtdeclarative5-dev
-    env: 
-      - VULCANO_CONFIG="--with-gui=qt5"
-      - HOST=i686-w64-mingw32 
-      - LABEL=win32
+    env:
+    - VULCANO_CONFIG="--with-gui=qt5"
+    - HOST=i686-w64-mingw32
+    - LABEL=win32
     os: linux
   - name: Windows x86 64 Bit
     addons:
@@ -118,85 +119,61 @@ matrix:
         - nsis
         - python3
         - qtdeclarative5-dev
-    env: 
-      - VULCANO_CONFIG="--with-gui=qt5"
-      - HOST=x86_64-w64-mingw32 
-      - LABEL=win64
+    env:
+    - VULCANO_CONFIG="--with-gui=qt5"
+    - HOST=x86_64-w64-mingw32
+    - LABEL=win64
     os: linux
   - name: macOS x86 64 Bit
-    env: 
-      - HOST=x86_64-apple-darwin
-      - LABEL=macOS
+    env:
+    - HOST=x86_64-apple-darwin
+    - LABEL=macOS
     os: osx
     osx_image: xcode9.2
 before_install:
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then 
-    brew update; 
-  fi
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
 install:
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then 
-    brew uninstall mercurial python; 
-    brew bundle; 
-    brew link --overwrite --force boost@1.57; 
-  fi
-- if [ "$PYZMQ" = "true" ]; then 
-    pip install pyzmq --user ; 
-  fi
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew uninstall mercurial python; brew
+  bundle; brew link --overwrite --force boost@1.57; fi
+- if [ "$PYZMQ" = "true" ]; then pip install pyzmq --user ; fi
 before_script:
-- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then 
-    unset CC CXX DISPLAY; 
-  fi
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then 
-    export LDFLAGS=-L/usr/local/opt/openssl/lib;
-    export CPPFLAGS=-I/usr/local/opt/openssl/include; 
-  fi
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then unset CC CXX DISPLAY; fi
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export LDFLAGS=-L/usr/local/opt/openssl/lib;
+  export CPPFLAGS=-I/usr/local/opt/openssl/include; fi
 - GLOBAL_CONFIG="--enable-reduce-exports --enable-tests --prefix=$TRAVIS_BUILD_DIR/depends/$HOST"
 script:
-- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then 
-    make $MAKEJOBS -C depends HOST="$HOST";
-    depends/$HOST/native/bin/ccache --max-size=$CCACHE_SIZE; sh ./autogen.sh;
-    ./configure --cache-file=config.cache $GLOBAL_CONFIG $VULCANO_CONFIG; 
-    make; 
-  fi
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then 
-    sh ./autogen.sh; 
-    ./configure --enable-reduce-exports;
-    make deploy; 
-  fi
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make $MAKEJOBS -C depends HOST="$HOST";
+  depends/$HOST/native/bin/ccache --max-size=$CCACHE_SIZE; sh ./autogen.sh; ./configure
+  --cache-file=config.cache $GLOBAL_CONFIG $VULCANO_CONFIG; make; fi
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sh ./autogen.sh; ./configure --enable-reduce-exports;
+  make deploy; fi
 before_deploy:
 - find . -name "vulcano-*"
 - mkdir -p $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION
 - mkdir $TRAVIS_BUILD_DIR/deploy
-- if [[ $HOST =~ linux ]]; then 
-    cp $TRAVIS_BUILD_DIR/src/vulcano-cli $TRAVIS_BUILD_DIR/src/vulcano-tx $TRAVIS_BUILD_DIR/src/vulcanod $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION;
-    if [[ -f $TRAVIS_BUILD_DIR/src/qt/vulcano-qt ]]; then 
-      cp $TRAVIS_BUILD_DIR/src/qt/vulcano-qt $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION; 
-    fi;
-    if command -v arm-linux-gnueabihf-strip; then 
-      arm-linux-gnueabihf-strip -s $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION/*;
-    else 
-      strip -s $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION/*; 
-    fi; 
-    cd $TRAVIS_BUILD_DIR/stage && tar czf vulcano-$VULCANO_VERSION-$LABEL.tar.gz ./vulcano-$VULCANO_VERSION && cd $TRAVIS_BUILD_DIR;
-    mv $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION-$LABEL.tar.gz $TRAVIS_BUILD_DIR/deploy/;
-  fi
-- if [[ $HOST =~ mingw32 ]]; then 
-    cp $TRAVIS_BUILD_DIR/src/vulcano-cli.exe $TRAVIS_BUILD_DIR/src/vulcano-tx.exe $TRAVIS_BUILD_DIR/src/vulcanod.exe $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION;
-    if [[ -f $TRAVIS_BUILD_DIR/src/qt/vulcano-qt.exe ]]; then 
-      cp $TRAVIS_BUILD_DIR/src/qt/vulcano-qt.exe $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION; 
-    fi; 
-    cd $TRAVIS_BUILD_DIR/stage && zip vulcano-$VULCANO_VERSION-$LABEL.zip ./vulcano-$VULCANO_VERSION/* && cd $TRAVIS_BUILD_DIR; 
-    mv $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION-$LABEL.zip $TRAVIS_BUILD_DIR/deploy/;
-    ls -la $TRAVIS_BUILD_DIR/deploy;
-  fi
-- if [[ $HOST =~ apple ]]; then 
-    mv $TRAVIS_BUILD_DIR/Vulcano-Qt.dmg $TRAVIS_BUILD_DIR/deploy/vulcano-$VULCANO_VERSION-$LABEL.dmg;
+- if [[ $HOST =~ linux ]]; then cp $TRAVIS_BUILD_DIR/src/vulcano-cli $TRAVIS_BUILD_DIR/src/vulcano-tx
+  $TRAVIS_BUILD_DIR/src/vulcanod $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION;
+  if [[ -f $TRAVIS_BUILD_DIR/src/qt/vulcano-qt ]]; then cp $TRAVIS_BUILD_DIR/src/qt/vulcano-qt
+  $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION; fi; if command -v arm-linux-gnueabihf-strip;
+  then arm-linux-gnueabihf-strip -s $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION/*;
+  else strip -s $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION/*; fi; cd $TRAVIS_BUILD_DIR/stage
+  && tar czf vulcano-$VULCANO_VERSION-$LABEL.tar.gz ./vulcano-$VULCANO_VERSION &&
+  cd $TRAVIS_BUILD_DIR; mv $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION-$LABEL.tar.gz
+  $TRAVIS_BUILD_DIR/deploy/; fi
+- if [[ $HOST =~ mingw32 ]]; then cp $TRAVIS_BUILD_DIR/src/vulcano-cli.exe $TRAVIS_BUILD_DIR/src/vulcano-tx.exe
+  $TRAVIS_BUILD_DIR/src/vulcanod.exe $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION;
+  if [[ -f $TRAVIS_BUILD_DIR/src/qt/vulcano-qt.exe ]]; then cp $TRAVIS_BUILD_DIR/src/qt/vulcano-qt.exe
+  $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION; fi; cd $TRAVIS_BUILD_DIR/stage
+  && zip vulcano-$VULCANO_VERSION-$LABEL.zip ./vulcano-$VULCANO_VERSION/* && cd $TRAVIS_BUILD_DIR;
+  mv $TRAVIS_BUILD_DIR/stage/vulcano-$VULCANO_VERSION-$LABEL.zip $TRAVIS_BUILD_DIR/deploy/;
+  ls -la $TRAVIS_BUILD_DIR/deploy; fi
+- if [[ $HOST =~ apple ]]; then mv $TRAVIS_BUILD_DIR/Vulcano-Qt.dmg $TRAVIS_BUILD_DIR/deploy/vulcano-$VULCANO_VERSION-$LABEL.dmg;
   fi
 deploy:
   provider: releases
   file_glob: true
   api_key:
-    secure:mjfgtfttCLd2R/uiVQhReRwwp5IzYJO1vfhw7egncLctQqj5o/uepoFKtsp6kcvLJas3fwGjW5992kah2qPWSIbtmduXGcn9Q+b442ijmVYx8KSj1IIYsFzYDAPhPm9smTvwslORMfIbBQZGEbf5zbS9ujLijP0hsldBvys6iU1jFngdI1afwmXdI+nu0xcO+pspwosFH2BOPRCOeTHxeMrZf1IxDe2x9oh+i8XJcCgc80BCTKceuZRCZlJNd53UHyutUFRhfML5kCgbR222lUtCQw6l6N1ey/xm+m4j0mbfhEhhOthqBAV8mURotmblgQ+pkI2ErPUETLC0UlXGzgNG3LyAsi5nXb+/nQnXsiI4eegYbqwiw570qxmIco/2b8amv67Q+E73RFej2rcN/bTzp8FkGj7oHAARuT33PLEU+eTG40tRonANNW113uBI4OZMSOM14Db/S3J0QI27KWVSBpp14O/8uJbKMNmnvhWYpYdVc1zyGKWFG+FWzMGpHw0p+D+TFXABA32nOsu1hvZUCFeAyxkmDjczt2z7HArHSW8ZUyQpCs05EQxdq+AuH9qrrpjLyj2//yZpQ/8g6cvcVN6Wa2KMmjeltnpXzzK5zmAfi4PQDqyle6A9EoE+fDcVwu7Xpp4SXAJFWuWrNSP2F5GXhDZc/4KbWwUG+Ew=
+    secure: aRx9x6JceZ3y7fGMaFSpojMkCOX0z5WfnpVlytT9XJBTTJt1w3rFsg3uhUTYu/3szmy+QkTGjprO1Vr+RFlq3rV4DwQkSIWxk2pZ3kCz4MwOIj2t9//7O1LJwqp1x+smofioQdx1wN0M077dXtDkynNVHIBGOI9MYumZ+ai6iuG71z+485LcKdQiHZpr7Fy8jhi2tKU9oQzwI9eG8fAcqJTPslLvQIRJ60UBowzSGHcm0TmAwps5nnBQu0b0TOO6kzHBItthhDq4jlQrTzhI0TdjWQa89y+wSba2g6ly/f5ithtGugMzQy6JPjh4Qs0d92qjTJx+UzxzDxYesqrmTAVt5FiUnaRj6Wg1P/F7WnVF8MWTySoJd9FK6f3H5gxtuTf4q58/jT4JFkyxSAzAToXFIw1Q30hOsy71ym7Zhc5NmXLwK6AA9+pvx6JTTqWlFmKUu6b5xTa+dnbt9C2HYHkbD0J59ca/2m69bhBIm/Nj61iqrJhxuiZRnxo62Lm8UBnIcVnvJfca9c9PvWFeHJPcS0aWyweTILwtAlG2P8rRAj3vdXNNpZ599fDdsqOWF+K5vELnWtNYGst3oaYV0YIS12IPGFZzE8fTQuHH4QjIhxuP60C1YAqbv8RC6hXOzbuKYCsjqzKbLG2TzPwWIZqQW5rla9SOBVv8xidhSsg=
   file: deploy/*
   name: "vulcano-${VULCANO_VERSION}"
   tag_name: "v${VULCANO_VERSION}" 
