@@ -1442,24 +1442,24 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
         <translation>Vyberte úrpvěň ochrany soukromí</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 5000 VULC</source>
-        <translation>Použí 2 oddělené masternody k promíchání prostředků až do 5000 VULC</translation>
+        <source>Use 2 separate masternodes to mix funds up to 50000 VULC</source>
+        <translation>Použí 2 oddělené masternody k promíchání prostředků až do 50000 VULC</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Použít 16 oddělených masternodů</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 VULC to anonymize 5000 VULC</source>
-        <translation>Tato možnost je nejrychleší a bude stát zhruba ~0.025 VULC pro anonymizaci 5000 VULC</translation>
+        <source>This option is the quickest and will cost about ~0.025 VULC to anonymize 50000 VULC</source>
+        <translation>Tato možnost je nejrychleší a bude stát zhruba ~0.025 VULC pro anonymizaci 50000 VULC</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Toto je nejpomalejší a nejvíce bezpečná volba. Použití maximalní anonymity bude stát</translation>
     </message>
     <message>
-        <source>0.1 VULC per 5000 VULC you anonymize.</source>
-        <translation>0.1 VULC za 5000 VULC anonymizujete.</translation>
+        <source>0.1 VULC per 50000 VULC you anonymize.</source>
+        <translation>0.1 VULC za 50000 VULC anonymizujete.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>

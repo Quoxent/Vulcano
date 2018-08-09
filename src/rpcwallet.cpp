@@ -1948,7 +1948,7 @@ Value reservebalance(const Array& params, bool fHelp)
             "  \"reserve\": true|false,     (boolean) Status of the reserve balance\n"
             "  \"amount\": x.xxxx       (numeric) Amount reserved\n"
             "\nExamples:\n" +
-            HelpExampleCli("reservebalance", "true 5000") + HelpExampleRpc("reservebalance", "true 5000"));
+            HelpExampleCli("reservebalance", "true 50000") + HelpExampleRpc("reservebalance", "true 50000"));
 
     if (params.size() > 0) {
         bool fReserve = params[0].get_bool();

@@ -1948,12 +1948,12 @@ Please check the address and try again.</source>
     </message>
     <message>
         <location line="+13"/>
-        <source>Use 2 separate masternodes to mix funds up to 5000 VULC</source>
+        <source>Use 2 separate masternodes to mix funds up to 50000 VULC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+13"/>
-        <source>Use 8 separate masternodes to mix funds up to 5000 VULC</source>
+        <source>Use 8 separate masternodes to mix funds up to 50000 VULC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1963,12 +1963,12 @@ Please check the address and try again.</source>
     </message>
     <message>
         <location line="+13"/>
-        <source>This option is the quickest and will cost about ~0.025 VULC to anonymize 5000 VULC</source>
+        <source>This option is the quickest and will cost about ~0.025 VULC to anonymize 50000 VULC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+13"/>
-        <source>This option is moderately fast and will cost about 0.05 VULC to anonymize 5000 VULC</source>
+        <source>This option is moderately fast and will cost about 0.05 VULC to anonymize 50000 VULC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1978,7 +1978,7 @@ Please check the address and try again.</source>
     </message>
     <message>
         <location line="+13"/>
-        <source>0.1 VULC per 5000 VULC you anonymize.</source>
+        <source>0.1 VULC per 50000 VULC you anonymize.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5261,12 +5261,12 @@ for example: alertnotify=echo %%s | mail -s &quot;Vulcano Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+2"/>
-        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 5000 VULC.</source>
+        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 50000 VULC.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Unable to locate enough funds for this transaction that are not equal 5000 VULC.</source>
+        <source>Unable to locate enough funds for this transaction that are not equal 50000 VULC.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -1460,32 +1460,32 @@ Favor verificar o endereço e tente novamente.</translation>
         <translation>Favor selecionar o nível de privacidade.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 5000 VULC</source>
-        <translation>Use 2 masternodes separados para embaralhar fundos até 5000 VULC</translation>
+        <source>Use 2 separate masternodes to mix funds up to 50000 VULC</source>
+        <translation>Use 2 masternodes separados para embaralhar fundos até 50000 VULC</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 5000 VULC</source>
-        <translation>Use 8 masternodes separados para embaralhar fundos até 5000 VULC</translation>
+        <source>Use 8 separate masternodes to mix funds up to 50000 VULC</source>
+        <translation>Use 8 masternodes separados para embaralhar fundos até 50000 VULC</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Use 16 masternodes separados</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 VULC to anonymize 5000 VULC</source>
-        <translation>Está opção é a mais rápida e vai custar em torno de ~0.025 VULC para anonimizar 5000 VULC</translation>
+        <source>This option is the quickest and will cost about ~0.025 VULC to anonymize 50000 VULC</source>
+        <translation>Está opção é a mais rápida e vai custar em torno de ~0.025 VULC para anonimizar 50000 VULC</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 VULC to anonymize 5000 VULC</source>
-        <translation>Está opção moderamente rápida e vai custar em torno de ~0.05 VULC para anonimizar 5000 VULC</translation>
+        <source>This option is moderately fast and will cost about 0.05 VULC to anonymize 50000 VULC</source>
+        <translation>Está opção moderamente rápida e vai custar em torno de ~0.05 VULC para anonimizar 50000 VULC</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Esta é a opção mais lenta e mais segura. Usando a anonimização máxima vai custar</translation>
     </message>
     <message>
-        <source>0.1 VULC per 5000 VULC you anonymize.</source>
-        <translation>0.1 VULC por 5000 VULC que deixar anônima.</translation>
+        <source>0.1 VULC per 50000 VULC you anonymize.</source>
+        <translation>0.1 VULC por 50000 VULC que deixar anônima.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>
@@ -3506,8 +3506,8 @@ https://www.transifex.com/vulcano-project/vulcano-project-translations</translat
         <translation>SwiftTX requer inputs com pelo menos 6 confirmações, você precisar aguardar alguns minutos e tentar novamente.</translation>
     </message>
     <message>
-        <source>Unable to locate enough funds for this transaction that are not equal 5000 VULC.</source>
-        <translation>Incapaz de localizar fundos para esta transação que não são iguais a 5000 VULC.</translation>
+        <source>Unable to locate enough funds for this transaction that are not equal 50000 VULC.</source>
+        <translation>Incapaz de localizar fundos para esta transação que não são iguais a 50000 VULC.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
