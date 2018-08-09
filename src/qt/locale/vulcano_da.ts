@@ -1520,32 +1520,32 @@ Kontroller adressen og prøv igen.</translation>
         <translation>Vælg tilsløringsniveau</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 500000 VULC</source>
-        <translation>Brug 2 separate masternoder for at tilsløre beløb op til 500000 VULC</translation>
+        <source>Use 2 separate masternodes to mix funds up to 50000 VULC</source>
+        <translation>Brug 2 separate masternoder for at tilsløre beløb op til 50000 VULC</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 500000 VULC</source>
-        <translation>Brug 8 separate masternoder for at tilsløre op til 500000 VULC</translation>
+        <source>Use 8 separate masternodes to mix funds up to 50000 VULC</source>
+        <translation>Brug 8 separate masternoder for at tilsløre op til 50000 VULC</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Brug 16 separate masternoder</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 VULC to anonymize 500000 VULC</source>
-        <translation>Dette valg er det hurtigste og vil koste i omegnen af 0.025 VULC for at anonymiser 500000 VULC</translation>
+        <source>This option is the quickest and will cost about ~0.025 VULC to anonymize 50000 VULC</source>
+        <translation>Dette valg er det hurtigste og vil koste i omegnen af 0.025 VULC for at anonymiser 50000 VULC</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 VULC to anonymize 500000 VULC</source>
-        <translation>Dette valg er relativt hurtigt og vil koste i omegnen af 0.05 VULC for at anonymiser 500000 VULC</translation>
+        <source>This option is moderately fast and will cost about 0.05 VULC to anonymize 50000 VULC</source>
+        <translation>Dette valg er relativt hurtigt og vil koste i omegnen af 0.05 VULC for at anonymiser 50000 VULC</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Denne mulighed er den langsomste og det mest sikre valg. Valg af maksimal tilsløring vil koste</translation>
     </message>
     <message>
-        <source>0.1 VULC per 500000 VULC you anonymize.</source>
-        <translation>0.1 pr 500000 VULC for at tilsløre.</translation>
+        <source>0.1 VULC per 50000 VULC you anonymize.</source>
+        <translation>0.1 pr 50000 VULC for at tilsløre.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>
@@ -4066,12 +4066,12 @@ For eksempel: alertnotify=Echo %% | mail - s "Vulcano ALARM!" e-mail@administrat
         <translation>Det er ikke muligt at allokere tilstrækkeligt med tilsløret designeret indestående for at gennemføre denne transaktion.</translation>
     </message>
     <message>
-        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 500000 VULC.</source>
-        <translation>Det er ikke muligt at allokere tilstrækkeligt med tilsløret  ikke-designeret indestående for at gennemføre denne transaktion, der ikke ækvivalerer 500000 VULC.</translation>
+        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 50000 VULC.</source>
+        <translation>Det er ikke muligt at allokere tilstrækkeligt med tilsløret  ikke-designeret indestående for at gennemføre denne transaktion, der ikke ækvivalerer 50000 VULC.</translation>
     </message>
     <message>
-        <source>Unable to locate enough funds for this transaction that are not equal 500000 VULC.</source>
-        <translation>Det var ikke muligt at allokere tilstrækkelige midler til denne transaktion som er forskellig fra 500000 VULC.</translation>
+        <source>Unable to locate enough funds for this transaction that are not equal 50000 VULC.</source>
+        <translation>Det var ikke muligt at allokere tilstrækkelige midler til denne transaktion som er forskellig fra 50000 VULC.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
