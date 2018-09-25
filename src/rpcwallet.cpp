@@ -222,18 +222,15 @@ Value setaccount(const Array& params, bool fHelp)
     if (params.size() > 1)
         strAccount = AccountFromValue(params[1]);
 
-    // Only add the account if the address is yours.
-    if (IsMine(*pwalletMain, address.Get())) {
-        // Detect when changing the account of an address that is the 'unused current key' of another account:
-        if (pwalletMain->mapAddressBook.count(address.Get())) {
-            string strOldAccount = pwalletMain->mapAddressBook[address.Get()].name;
-            if (address == GetAccountAddress(strOldAccount))
-                GetAccountAddress(strOldAccount, true);
-        }
+    // DS: setaccount returns an error if the address isn't in your wallet and wont create a new address
+    // Check if the address is in your wallet
+    if (!pwalletMain->mapAddressBook.count(address.Get()))
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Vulcano address");
+    if (IsMine(*pwalletMain, address.Get()))
         pwalletMain->SetAddressBook(address.Get(), strAccount, "receive");
-    } else
+    else
         throw JSONRPCError(RPC_MISC_ERROR, "setaccount can only be used with own address");
-
+    
     return Value::null;
 }
 
