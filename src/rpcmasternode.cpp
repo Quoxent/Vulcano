@@ -952,7 +952,7 @@ Value initmasternode (const Array& params, bool fHelp)
     CKey key;
     CPubKey pubkey;
     if (!obfuScationSigner.SetKey(strMasterNodePrivKey, errorMessage, key, pubkey)) {
-        return runtime_error("Invalid masternodeprivkey. Please see documenation.");
+        throw runtime_error("Invalid masternodeprivkey. Please see documenation.");
     }
     activeMasternode.pubKeyMasternode = pubkey;
     fMasterNode = true;
