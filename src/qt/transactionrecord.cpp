@@ -17,18 +17,17 @@
 
 /* Return positive answer if transaction should be shown in list.
  */
-bool TransactionRecord::showTransaction(const CWalletTx& wtx)
-{
+bool TransactionRecord::showTransaction(const CWalletTx& wtx) {
     if (wtx.IsCoinBase()) {
         // Ensures we show generated coins / mined transactions at depth 1
         if (!wtx.IsInMainChain()) {
             return false;
         }
+        return true;
+    } else {
+        QSettings settings;
+        return (!settings.value("fShowOrphans").toBool() || wtx.GetDepthInMainChain() >= 0);
     }
-	else {
-		QSettings settings;
-		return (!settings.value("fShowOrphans").toBool() || wtx.GetDepthInMainChain() >= 0);
-	}
 }
 
 /*
