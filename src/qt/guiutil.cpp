@@ -57,12 +57,9 @@
 #include <QSettings>
 #include <QTextDocument> // for Qt::mightBeRichText
 #include <QThread>
-
-#if QT_VERSION < 0x050000
-#include <QUrl>
-#else
 #include <QUrlQuery>
-#endif
+#include <QMouseEvent>
+
 
 #if BOOST_FILESYSTEM_VERSION >= 3
 static boost::filesystem::detail::utf8_codecvt_facet utf8;
@@ -80,15 +77,12 @@ extern double NSAppKitVersionNumber;
 
 #define URI_SCHEME "vulcano"
 
-namespace GUIUtil
-{
-QString dateTimeStr(const QDateTime& date)
-{
+namespace GUIUtil {
+QString dateTimeStr(const QDateTime& date) {
     return date.date().toString(Qt::SystemLocaleShortDate) + QString(" ") + date.toString("hh:mm");
 }
 
-QString dateTimeStr(qint64 nTime)
-{
+QString dateTimeStr(qint64 nTime) {
     return dateTimeStr(QDateTime::fromTime_t((qint32)nTime));
 }
 
@@ -117,8 +111,42 @@ void setupAddressWidget(QValidatedLineEdit* widget, QWidget* parent)
     widget->setCheckValidator(new BitcoinAddressCheckValidator(parent));
 }
 
-void setupAmountWidget(QLineEdit* widget, QWidget* parent)
-{
+void setupAliasWidget(QValidatedLineEdit* widget, QWidget* parent) {
+    parent->setFocusProxy(widget);
+
+    widget->setFont(bitcoinAddressFont());
+    widget->setPlaceholderText(QObject::tr("Enter a Masternode Alias (e.g. %1)").arg("mn1"));
+}
+
+void setupIPWidget(QValidatedLineEdit* widget, QWidget* parent) {
+    parent->setFocusProxy(widget);
+
+    widget->setFont(bitcoinAddressFont());
+    widget->setPlaceholderText(QObject::tr("Enter a VPS IP (e.g. %1)").arg("127.0.0.2:11771"));
+}
+
+void setupPrivKeyWidget(QValidatedLineEdit* widget, QWidget* parent) {
+    parent->setFocusProxy(widget);
+
+    widget->setFont(bitcoinAddressFont());
+    widget->setPlaceholderText(QObject::tr("Enter a Private Key (e.g. %1)").arg("93HaYBVUCYjEMeeH1Y4sBGLALQZE1Yc1K64xiqgX37tGBDQL8Xt"));
+}
+
+void setupTXIDWidget(QValidatedLineEdit* widget, QWidget* parent) {
+    parent->setFocusProxy(widget);
+
+    widget->setFont(bitcoinAddressFont());
+    widget->setPlaceholderText(QObject::tr("Enter a TX Output (e.g. %1)").arg("2bcd3c84c84f87eaa86e4e56834c92937a07f9e18718810b92e0d0324456a57c"));
+}
+
+void setupTXIDIndexWidget(QValidatedLineEdit* widget, QWidget* parent) {
+    parent->setFocusProxy(widget);
+
+    widget->setFont(bitcoinAddressFont());
+    widget->setPlaceholderText(QObject::tr("Enter a TX Index (e.g. %1)").arg("1"));
+}
+
+void setupAmountWidget(QLineEdit* widget, QWidget* parent) {
     QDoubleValidator* amountValidator = new QDoubleValidator(parent);
     amountValidator->setDecimals(8);
     amountValidator->setBottom(0.0);

@@ -6,7 +6,9 @@
 #define BITCOIN_QT_WALLETVIEW_H
 
 #include "amount.h"
+#include "askpassphrasedialog.h"
 #include "masternodelist.h"
+#include "proposallist.h"
 
 #include <QStackedWidget>
 
@@ -32,11 +34,10 @@ QT_END_NAMESPACE
   It communicates with both the client and the wallet models to give the user an up-to-date view of the
   current core state.
 */
-class WalletView : public QStackedWidget
-{
+class WalletView : public QStackedWidget {
     Q_OBJECT
 
-public:
+  public:
     explicit WalletView(QWidget* parent);
     ~WalletView();
 
@@ -55,7 +56,7 @@ public:
 
     void showOutOfSyncWarning(bool fShow);
 
-private:
+  private:
     ClientModel* clientModel;
     WalletModel* walletModel;
 
@@ -65,13 +66,15 @@ private:
     SendCoinsDialog* sendCoinsPage;
     BlockExplorer* explorerWindow;
     MasternodeList* masternodeListPage;
+    QWidget* proposalListPage;
 
     TransactionView* transactionView;
+    ProposalList* proposalList;
 
     QProgressDialog* progressDialog;
     QLabel* transactionSum;
 
-public slots:
+  public slots:
     /** Switch to overview (home) page */
     void gotoOverviewPage();
     /** Switch to history (transactions) page */
@@ -80,6 +83,8 @@ public slots:
     void gotoMasternodePage();
     /** Switch to explorer page */
     void gotoBlockExplorerPage();
+    /** Switch to proposal page */
+    void gotoProposalPage();
     /** Switch to receive coins page */
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
@@ -91,10 +96,8 @@ public slots:
     void gotoVerifyMessageTab(QString addr = "");
     /** Show MultiSend Dialog */
     void gotoMultiSendDialog();
-
-     /** Show a multisig tab **/
+    /** Show a multisig tab **/
     void gotoMultisigDialog(int index);
-
     /** Show BIP 38 tool - default to Encryption tab */
     void gotoBip38Tool();
 
@@ -113,6 +116,8 @@ public slots:
     void unlockWallet();
     /** Lock wallet */
     void lockWallet();
+    /** Toggle wallet lock state */
+    void toggleLockWallet();
 
     /** Show used sending addresses */
     void usedSendingAddresses();
@@ -128,7 +133,7 @@ public slots:
     /** Update selected VULC amount from transactionview */
     void trxAmount(QString amount);
 
-signals:
+  signals:
     /** Signal that we want to show the main window */
     void showNormalIfMinimized();
     /**  Fired when a message should be reported to the user */

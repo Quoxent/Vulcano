@@ -17,6 +17,7 @@
 #include "openuridialog.h"
 #include "optionsdialog.h"
 #include "optionsmodel.h"
+#include "proposallist.h"
 #include "rpcconsole.h"
 #include "utilitydialog.h"
 
@@ -56,6 +57,7 @@
 #include <QStyle>
 #include <QTimer>
 #include <QToolBar>
+#include <QUrlQuery>
 #include <QVBoxLayout>
 #include "qtmaterialflatbutton.h"
 
@@ -105,6 +107,7 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle* networkStyle, QWidget* parent) : QMai
                                                                             openAction(0),
                                                                             showHelpMessageAction(0),
                                                                             multiSendAction(0),
+    									    proposalAction(0),
                                                                             trayIcon(0),
                                                                             trayIconMenu(0),
                                                                             notificator(0),
@@ -244,6 +247,7 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle* networkStyle, QWidget* parent) : QMai
     connect(openMNConfEditorAction, SIGNAL(triggered()), rpcConsole, SLOT(showMNConfEditor()));
     connect(showBackupsAction, SIGNAL(triggered()), rpcConsole, SLOT(showBackups()));
     connect(labelConnectionsIcon, SIGNAL(clicked()), rpcConsole, SLOT(showPeers()));
+    connect(labelEncryptionIcon, SIGNAL(clicked()), walletFrame, SLOT(toggleLockWallet()));
 
     // Get restart command-line parameters and handle restart
     connect(rpcConsole, SIGNAL(handleRestart(QStringList)), this, SLOT(handleRestart(QStringList)));
@@ -408,6 +412,17 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
     connect(historyAction, SIGNAL(triggered()), this, SLOT(gotoHistoryPage()));
 #endif // ENABLE_WALLET
 
+    proposalAction = new QAction(QIcon(":/icons/proposal_m"), tr("Proposals"), this);
+    proposalAction->setStatusTip(tr("Browse proposals"));
+    proposalAction->setToolTip(proposalAction->statusTip());
+    proposalAction->setCheckable(true);
+#ifdef Q_OS_MAC
+    proposalAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_7));
+#else
+    proposalAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_7));
+#endif
+    tabGroup->addAction(proposalAction);
+
     quitAction = new QAction(QIcon(":/icons/quit"), tr("E&xit"), this);
     quitAction->setStatusTip(tr("Quit application"));
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
@@ -491,6 +506,8 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
     showHelpMessageAction->setMenuRole(QAction::NoRole);
     showHelpMessageAction->setStatusTip(tr("Show the Vulcano Core help message to get a list with possible Vulcano command-line options"));
 
+    connect(proposalAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(proposalAction, SIGNAL(triggered()), this, SLOT(gotoProposalPage()));
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutClicked()));
     connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
@@ -594,6 +611,7 @@ void BitcoinGUI::createToolBars()
         toolbar->addAction(sendCoinsAction);
         toolbar->addAction(receiveCoinsAction);
         toolbar->addAction(historyAction);
+        toolbar->addAction(proposalAction);
         QSettings settings;
         if (settings.value("fShowMasternodesTab").toBool()) {
             toolbar->addAction(masternodeAction);
@@ -688,6 +706,7 @@ void BitcoinGUI::setWalletActionsEnabled(bool enabled)
     sendCoinsAction->setEnabled(enabled);
     receiveCoinsAction->setEnabled(enabled);
     historyAction->setEnabled(enabled);
+    proposalAction->setEnabled(enabled);
     QSettings settings;
     if (settings.value("fShowMasternodesTab").toBool()) {
         masternodeAction->setEnabled(enabled);
@@ -844,8 +863,12 @@ void BitcoinGUI::gotoSendCoinsPage(QString addr)
     if (walletFrame) walletFrame->gotoSendCoinsPage(addr);
 }
 
-void BitcoinGUI::gotoSignMessageTab(QString addr)
-{
+void BitcoinGUI::gotoProposalPage() {
+    proposalAction->setChecked(true);
+    if (walletFrame) walletFrame->gotoProposalPage();
+}
+
+void BitcoinGUI::gotoSignMessageTab(QString addr) {
     if (walletFrame) walletFrame->gotoSignMessageTab(addr);
 }
 

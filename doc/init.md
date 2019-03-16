@@ -89,7 +89,7 @@ use old versions of Upstart and do not supply the start-stop-daemon uitility.
 Copy vulcanod.init to /etc/init.d/vulcanod. Test by running "service vulcanod start".
 
 Using this script, you can adjust the path and flags to the vulcanod program by
-setting the BULWARKD and FLAGS environment variables in the file
+setting the VULCANOD and FLAGS environment variables in the file
 /etc/sysconfig/vulcanod. You can also use the DAEMONOPTS environment variable here.
 
 5. Auto-respawn

@@ -143,8 +143,12 @@ void WalletModel::pollBalanceChanged()
     }
 }
 
-void WalletModel::checkBalanceChanged()
-{
+void WalletModel::emitBalanceChanged() {
+    // Force update of UI elements even when no values have changed
+    emit balanceChanged(cachedBalance, cachedUnconfirmedBalance, cachedImmatureBalance, cachedAnonymizedBalance, cachedWatchOnlyBalance, cachedWatchUnconfBalance, cachedWatchImmatureBalance);
+}
+
+void WalletModel::checkBalanceChanged() {
     TRY_LOCK(cs_main, lockMain);
     if (!lockMain) return;
 
