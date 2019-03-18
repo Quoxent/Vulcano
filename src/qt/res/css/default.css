@@ -570,6 +570,12 @@ QDialog#OptionsDialog QCheckBox#displayAddresses {
 QDialog#OptionsDialog QLabel#labelStakeSplitThresholdText {
 	font-size: 16px
 }
+QDialog#MultiSendDialog .QScrollArea * {
+	background-color: #272727
+}
+QDialog#MultiSendConfigDialog .QScrollArea * {
+	background-color: #272727
+}
 QDialog#RPCConsole QWidget#tab_info QLabel#label_11,
 QDialog#RPCConsole QWidget#tab_info QLabel#label_10 {
 	qproperty-alignment: 'AlignBottom';
