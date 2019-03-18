@@ -1209,7 +1209,7 @@ void BitcoinGUI::setStakingStatus()
 		else
 			tooltip.append("false\n");
 		tooltip.append("mintablecoins: ");
-		if (!pwalletMain->MintableCoins())
+		if (pwalletMain->MintableCoins())
 			tooltip.append("true\n");
 		else
 			tooltip.append("false\n");
